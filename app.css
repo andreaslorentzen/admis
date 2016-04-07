@@ -1,0 +1,31 @@
+html{
+	overflow-y: scroll;
+}
+@media (min-width: 1200px){
+	#page-container{
+		width: 1100px;
+	}
+}
+#navbar{
+	margin-bottom: 12px;
+}
+table.selectable-table tr{
+	cursor: pointer;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+ * Bootstrap UI fix
+ */
+.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }

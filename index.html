@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html ng-app="mainApp">
+<head>
+	<title>Admis</title>
+	<base href="/admis/">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="assets/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="app.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-route.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-animate.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-touch.min.js"></script>
+	<script src="assets/ui-bootstrap-tpls-1.2.5.min.js"></script>
+	<script src="app.js"></script>
+	<script src="apiService.js"></script>	
+	<script src="front/FrontController.js"></script>
+	<script src="login/LoginController.js"></script>
+	<script src="components/ComponentsController.js"></script>
+	<script src="group/GroupController.js"></script>
+</head>
+<body ng-controller="AppController">
+	<div id="page-container" class="container">
+		<div class="row">
+			<div class="page-header">
+				<h1>Admis</h1>
+			</div>
+		</div>
+		<div class="row">
+			<div id="navbar">
+				<ul class="nav nav-tabs">
+					<li role="presentation" ng-class="{'active': currentUri() == '/'}"><a href="./">Forside</a></li>
+					<li role="presentation" ng-class="{'active': currentUri() == '/components'}"><a href="components">Komponenter</a></li>
+					<li role="presentation" ng-class="{'active': currentUri() == '/loans'}"><a href="loans">Udlån</a></li>
+					<li role="presentation" ng-class="{'active': currentUri() == '/students'}"><a href="students">Studerende</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="row" ng-view></div>
+</body>
+</html>

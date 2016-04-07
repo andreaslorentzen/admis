@@ -1,0 +1,15 @@
+<div class="modal-header">
+    <h3 class="modal-title">Tilføj komponent gruppe</h3>
+</div>
+<div class="modal-body">
+<form name="createGroupForm" ng-submit="create(createGroupForm)" no-validate>
+  <div class="form-group">
+    <label for="name">Navn</label>
+    <input type="text" class="form-control" name="name" ng-model="name">
+  </div>
+</form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" ng-click="create(createGroupForm)">Tilføj</button>
+    <button class="btn btn-default" ng-click="cancel()">Fortryd</button>
+</div>
