@@ -9,7 +9,7 @@ html{
 #navbar{
 	margin-bottom: 12px;
 }
-table.selectable-table tr{
+table.selectable-table tbody tr{
 	cursor: pointer;
 }
 

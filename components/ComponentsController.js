@@ -13,6 +13,7 @@
     		$scope.selectedGroup;
 
     		apiService.getComponents().then(function(components){
+                console.log(components);
     			$scope.components = components;
     		});
     		apiService.getComponentGroups().then(function(componentGroups){
@@ -30,10 +31,12 @@
     				$scope.selectedGroup = group;
     		};
 
-
+            $scope.editGroup = function(group){
+                $location.url('components/group/'+group.componentGroupId);
+            };
 
             function ModalCreateGroupController($scope, $uibModalInstance){
-                $scope.name = "hell";
+                $scope.name = "";
 
                 $scope.create = function(form){
                     if($scope.name == "")
@@ -60,33 +63,10 @@
                 });
             };
 
-
-
-            function ModalCreateComponentsController($scope, $uibModalInstance){
-                
-
-                $scope.create = function(form){
-                    if($scope.name == "")
-                        return;
-
-                    apiService.createComponents($scope.name).then(function(){
-                        $uibModalInstance.close();
-                    })
-                };
-                $scope.cancel = function(){
-                    $uibModalInstance.dismiss();
-                };
-            }
-
-            $scope.createComponents = function(){
-                $uibModal.open({
-                    templateUrl: 'components/modal-create-components.html',
-                    size: 'lg',
-                    controller: ModalCreateComponentsController,
-                    scope: $scope
-                }).result.then(function(){
-
-                });
+            $scope.openComponent = function(component){
+                if($scope.components.indexOf(component) == -1)
+                    return;
+                $location.url("components/"+component.componentId);
             };
 
     	})

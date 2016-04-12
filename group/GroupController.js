@@ -30,6 +30,36 @@
     			});
     		};
 
+/*
+            function ModalCreateComponentsController($scope, $uibModalInstance){
+                
+
+                $scope.create = function(form){
+                    if($scope.name == "")
+                        return;
+
+                    apiService.createComponents($scope.name).then(function(){
+                        $uibModalInstance.close();
+                    })
+                };
+                $scope.cancel = function(){
+                    $uibModalInstance.dismiss();
+                };
+            }
+
+            $scope.createComponents = function(){
+                $uibModal.open({
+                    templateUrl: 'components/modal-create-components.html',
+                    size: 'lg',
+                    controller: ModalCreateComponentsController,
+                    scope: $scope
+                }).result.then(function(){
+
+                });
+            };
+            */
+
+
     	})
 
 })();

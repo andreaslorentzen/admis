@@ -1,5 +1,5 @@
 <h1>Students</h1>
-<table class="table table-hover">
+<table class="table table-hover selectable-table">
 	<thead>
 		<tr>
 			<th>Studie nr</th>
@@ -13,7 +13,7 @@
 			<td>{{student.studentId}}</td>
 			<td>{{student.name}}</td>
 			<td>{{student.status}}</td>
-			<td width="72"><button type="button" class="btn btn-xs btn-success" ng-click="editGroup(group)">Rediger</button></td>
+			<td width="72"><button type="button" class="btn btn-xs btn-primary" ng-click="openStudent(student)">Vis</button></td>
 		</tr>
 	</tbody>
 </table>

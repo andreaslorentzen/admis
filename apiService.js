@@ -5,44 +5,53 @@
     	.service('apiService', ['$http','$q', function($http,$q){
             var groups = [
                 {
+                    componentGroupId: 1,
                     name: "RFID Reader",
                     components: [
                         {
+                            componentId: 1,
                             barcode: 2321232,
                             group: "RFID Reader",
                             number: "001"
                         },
                         {
+                            componentId: 2,
                             barcode: 2321231,
                             group: "RFID Reader",
                             number: "002"
                         },
                         {
+                            componentId: 3,
                             barcode: 2321233,
                             group: "RFID Reader",
                             number: "003"
                         },
                         {
+                            componentId: 4,
                             barcode: 2328232,
                             group: "RFID Reader",
                             number: "004"
                         },
                         {
+                            componentId: 5,
                             barcode: 2561232,
                             group: "RFID Reader",
                             number: "005"
                         },
                         {
+                            componentId: 6,
                             barcode: 2323732,
                             group: "RFID Reader",
                             number: "006"
                         },
                         {
+                            componentId: 7,
                             barcode: 2329632,
                             group: "RFID Reader",
                             number: "007"
                         },
                         {
+                            componentId: 8,
                             barcode: 2303432,
                             group: "RFID Reader",
                             number: "008"
@@ -50,10 +59,14 @@
                     ]
                 },
                 {
+                    componentGroupId: 2,
                     name: "VGA HDMI Adapter",
+                    components: []
                 },
                 {
+                    componentGroupId: 3,
                     name: "Zypo board",
+                    components: []
                 }
             ];
             var students = [
@@ -75,7 +88,9 @@
 
                     var components2 = [];
 
-                    angular.extend(components2, groups[0])
+                    for (var g = 0; g < groups.length; g++) {
+                        angular.extend(components2, groups[g].components);
+                    }
 
     				deferred.resolve(components2);
 
@@ -86,7 +101,7 @@
                     var deferred = $q.defer();
 
                     groups[groupId-1].components.push({
-                        barcode: 8372939,
+                        barcode: parseInt(Math.random()*100000000),
                         number: number
                     });
 

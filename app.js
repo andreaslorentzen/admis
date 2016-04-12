@@ -8,11 +8,11 @@
 				.hashPrefix('!');
 
     		$routeProvider
-				.when('/', {
+			/*	.when('/', {
 					templateUrl: 'front/front.html',
 					controller: 'FrontController'
 				})
-				.when('/login', {
+			*/	.when('/login', {
 					templateUrl: 'login/login.html',
 					controller: 'LoginController'
 				})
@@ -32,7 +32,7 @@
 					controller: 'StudentsController'
 				})
 				.otherwise({
-					redirectTo: '/'
+					redirectTo: '/components'
 				});
     	})
     	.controller('AppController', function($scope, $location){
