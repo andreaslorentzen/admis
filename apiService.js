@@ -7,65 +7,77 @@
                 {
                     componentGroupId: 1,
                     name: "RFID Reader",
+                    status: 0,
                     components: [
                         {
                             componentId: 1,
                             barcode: 2321232,
                             group: "RFID Reader",
-                            number: "001"
+                            number: "001",
+                            status: 0
                         },
                         {
                             componentId: 2,
                             barcode: 2321231,
                             group: "RFID Reader",
-                            number: "002"
+                            number: "002",
+                            status: 1,
+                            studentId: "s144886"
                         },
                         {
                             componentId: 3,
                             barcode: 2321233,
                             group: "RFID Reader",
-                            number: "003"
+                            number: "003",
+                            status: 1
                         },
                         {
                             componentId: 4,
                             barcode: 2328232,
                             group: "RFID Reader",
-                            number: "004"
+                            number: "004",
+                            status: 0
                         },
                         {
                             componentId: 5,
                             barcode: 2561232,
                             group: "RFID Reader",
-                            number: "005"
+                            number: "005",
+                            status: 0
                         },
                         {
                             componentId: 6,
                             barcode: 2323732,
                             group: "RFID Reader",
-                            number: "006"
+                            number: "006",
+                            status: 0
                         },
                         {
                             componentId: 7,
                             barcode: 2329632,
                             group: "RFID Reader",
-                            number: "007"
+                            number: "007",
+                            status: 0
                         },
                         {
                             componentId: 8,
                             barcode: 2303432,
                             group: "RFID Reader",
-                            number: "008"
+                            number: "008",
+                            status: 0
                         }
                     ]
                 },
                 {
                     componentGroupId: 2,
+                    status: 1,
                     name: "VGA HDMI Adapter",
                     components: []
                 },
                 {
                     componentGroupId: 3,
                     name: "Zypo board",
+                    status: 1,
                     components: []
                 }
             ];
@@ -102,7 +114,8 @@
 
                     groups[groupId-1].components.push({
                         barcode: parseInt(Math.random()*100000000),
-                        number: number
+                        number: number,
+                        status: 0
                     });
 
                     deferred.resolve();
@@ -136,6 +149,7 @@
 
                     groups.push({
                         name: name,
+                        status: 1
                         components: []
                     });
                     deferred.resolve(groups.length);

@@ -3,6 +3,10 @@
 	<p>Du kan tilføje nye komponenter, rette komponenter og fjerne komponenter.</p>
 </div>
 <h1>Komponent grupper <button type="button" class="btn btn-xs btn-primary" ng-click="createGroup()">Tilføj</button></h1>
+<div class="btn-group">
+    <label class="btn btn-primary" ng-model="checkModel2.left" uib-btn-checkbox>Aktive</label>
+    <label class="btn btn-primary" ng-model="checkModel2.right" uib-btn-checkbox>Deaktiverede</label>
+</div>
 <table class="table table-hover selectable-table">
 	<thead>
 		<tr>
@@ -16,7 +20,10 @@
 		<tr ng-repeat="group in componentGroups" ng-class="{'success': group == selectedGroup}">
 			<td ng-click="selectGroup(group)">{{group.name}}</td>
 			<td ng-click="selectGroup(group)"></td>
-			<td ng-click="selectGroup(group)">{{group.status}}</td>
+			<td ng-click="selectGroup(group)">
+				<span ng-if="group.status == 0" class="text-warning">Deaktiveret</span>
+				<span ng-if="group.status == 1" class="text-success">Aktiv</span>
+			</td>
 			<td width="72"><button type="button" class="btn btn-xs btn-success" ng-click="editGroup(group)">Rediger</button></td>
 		</tr>
 	</tbody>
@@ -24,6 +31,12 @@
 <h1>Komponenter</h1>
 <div>
 	<input type="text" ng-model="search" class="form-control" placeholder="Søg i komponenter">
+
+</div>
+<div class="btn-group">
+    <label class="btn btn-primary" ng-model="checkModel.left" uib-btn-checkbox>Aktive</label>
+    <label class="btn btn-primary" ng-model="checkModel.middle" uib-btn-checkbox>Udlånt</label>
+    <label class="btn btn-primary" ng-model="checkModel.right" uib-btn-checkbox>Deaktiverede</label>
 </div>
 <table class="table table-hover selectable-table">
 	<thead>
@@ -40,8 +53,12 @@
 			<td>{{component.barcode}}</td>
 			<td>{{component.group}}</td>
 			<td>{{component.number}}</td>
-			<td></td>
-			<td width="72"><button type="button" class="btn btn-xs btn-primary">Vis</button></td>
+			<td>
+				<span ng-if="!component.studentId && component.status == 0">Deaktiveret</span>
+				<span ng-if="!component.studentId && component.status == 1">-</span>
+				<a ng-if="component.studentId" href="students/{{component.studentId}}">{{component.studentId}}</a>
+			</td>
+			<td width="40"><button type="button" class="btn btn-xs btn-info">Vis</button></td>
 		</tr>
 		<tr ng-show="results.length==0">
 			<td colspan="4" class="text-center"><em>Ingen komponenter matchede søgningen</em></td>
