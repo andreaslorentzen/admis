@@ -27,6 +27,10 @@
 				.when('/components/:componentId', {
 					templateUrl: 'component/component.html',
 				})
+				.when('/students', {
+					templateUrl: 'students/students.html',
+					controller: 'StudentsController'
+				})
 				.otherwise({
 					redirectTo: '/'
 				});

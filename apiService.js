@@ -56,6 +56,16 @@
                     name: "Zypo board",
                 }
             ];
+            var students = [
+                {
+                    studentId: "s144886",
+                    name: "Andreas"
+                },
+                {
+                    studentId: "s144880",
+                    name: "Thomas"
+                }
+            ];
     		return {
     			isLoggedIn: function(){
     				return true;
@@ -114,6 +124,15 @@
                         components: []
                     });
                     deferred.resolve(groups.length);
+
+                    return deferred.promise;
+                },
+                getStudents: function(){
+                    var deferred = $q.defer();
+
+                    deferred.resolve(
+                        angular.copy(students)
+                    );
 
                     return deferred.promise;
                 }
