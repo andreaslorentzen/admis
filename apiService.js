@@ -149,7 +149,7 @@
 
                     groups.push({
                         name: name,
-                        status: 1
+                        status: 1,
                         components: []
                     });
                     deferred.resolve(groups.length);
