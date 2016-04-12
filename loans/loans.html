@@ -1,0 +1,37 @@
+<h1>Loans</h1>
+<table class="table table-hover selectable-table">
+	<thead>
+		<tr>
+			<th>Nummer</th>
+			<th>Komponent nr</th>
+			<th>Studie nr</th>
+			<th>Udlånsdato</th>
+			<th>Afleveringsdato</th>
+			<th>Leveringsdato</th>
+			<th>Leveret dato</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="loan in loans">
+			<td>{{loan.loanId}}</td>
+			<td>{{loan.componentId}}</td>
+			<td>{{loan.studentId}}</td>
+			<td>{{loan.loanDate}}</td>
+			<td>{{loan.dueDate}}</td>
+			<td>{{loan.deliveryDate}}</td>
+			<td>{{loan.deliveredTo}}</td>
+			<td width="72"><button type="button" class="btn btn-xs btn-primary" ng-click="openStudent(loan)">Vis</button></td>
+		</tr>
+	</tbody>
+</table>
+
+
+<!--
+                    loanId: "0",
+                    componentId: "0"
+                    studentId: "s144886"
+                    loanDate: "12"
+                    dueDate: "12"
+                    deliveryDate: "12"
+                    deliveredTo: "12"
+-->

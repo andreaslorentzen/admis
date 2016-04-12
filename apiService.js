@@ -91,6 +91,26 @@
                     name: "Thomas"
                 }
             ];
+            var loans = [
+                {
+                    loanId: "0",
+                    componentId: "0",
+                    studentId: "s144886",
+                    loanDate: "12",
+                    dueDate: "12",
+                    deliveryDate: "12",
+                    deliveredTo: "12",
+                },
+                {
+                    loanId: "1",
+                    componentId: "1",
+                    studentId: "s144880",
+                    loanDate: "13",
+                    dueDate: "13",
+                    deliveryDate: "13",
+                    deliveredTo: "13",
+                }
+            ];
     		return {
     			isLoggedIn: function(){
     				return true;
@@ -161,6 +181,15 @@
 
                     deferred.resolve(
                         angular.copy(students)
+                    );
+
+                    return deferred.promise;
+                },
+                getLoans: function(){
+                    var deferred = $q.defer();
+
+                    deferred.resolve(
+                        angular.copy(loans)
                     );
 
                     return deferred.promise;
