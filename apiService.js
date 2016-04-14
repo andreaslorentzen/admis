@@ -165,6 +165,23 @@
                     );
 
                     return deferred.promise;
+                },
+                getStudent: function(studentId){
+                    var deferred = $q.defer();
+                    var found = false;
+                    for (var i = 0; i < students.length; i++) {
+                        if(students[i].studentId == studentId){
+                            deferred.resolve(
+                                angular.copy(students[i])
+                            );
+                            found = true;
+                            break;
+                        }
+                    }
+                    if(!found)
+                        deferred.reject();
+
+                    return deferred.promise;
                 }
     		}
     	}])

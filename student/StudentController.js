@@ -2,7 +2,7 @@
 	'use strict';
 
 	angular.module('mainApp')
-		.controller('StudentController', function($scope, apiService, $uibModal, $location){
+		.controller('StudentController', function($scope, apiService, $uibModal, $location, $routeParams){
 			
 			if(!apiService.isLoggedIn()){
 				$location.url('login');
