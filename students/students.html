@@ -6,8 +6,8 @@
 </div>
 <div class="col-xs-6 col-sm-4 text-right">
 	<div class="btn-group">
-		<label class="btn btn-primary" ng-model="sort.active" uib-btn-checkbox>Aktive</label>
-		<label class="btn btn-primary" ng-model="sort.inactive" uib-btn-checkbox>Deaktiverede</label>
+		<label class="btn btn-primary" ng-model="sort.active" uib-btn-checkbox>Aktive <span class="badge">{{numberOfActive()}}</span></label>
+		<label class="btn btn-primary" ng-model="sort.inactive" uib-btn-checkbox>Deaktiverede <span class="badge">{{numberOfInactive()}}</label>
 	</div>
 </div>
 </div>
@@ -27,7 +27,7 @@
 			<td>{{student.studentId}}</td>
 			<td>{{student.name}}</td>
 			<td>{{student.status | studentStatus}}</td>
-			<td><button type="button" class="btn btn-xs btn-info">Vis</button></td>
+			<td class="text-right"><button type="button" class="btn btn-xs btn-info">Vis</button></td>
 		</tr>
 		<tr ng-show="results.length==0">
 			<td colspan="4" class="text-center"><em>Ingen studerende matchede søgningen</em></td>
