@@ -194,7 +194,7 @@
                     );
 
                     return deferred.promise;
-                }
+                },
                 getStudent: function(studentId){
                     var deferred = $q.defer();
                     var found = false;
