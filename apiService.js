@@ -84,7 +84,8 @@
             var students = [
                 {
                     studentId: "s144886",
-                    name: "Andreas"
+                    name: "Andreas",
+                    status: 1
                 },
                 {
                     studentId: "s144880",

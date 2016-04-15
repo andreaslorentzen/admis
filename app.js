@@ -35,6 +35,10 @@
 					templateUrl: 'students/students.html',
 					controller: 'StudentsController'
 				})
+				.when('/students/:studentId', {
+					templateUrl: 'student/student.html',
+					controller: 'StudentController'
+				})
 				.otherwise({
 					redirectTo: '/components'
 				});

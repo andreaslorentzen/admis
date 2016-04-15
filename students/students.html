@@ -1,19 +1,36 @@
-<h1>Students</h1>
+<h1>Studerende</h1>
+
+<div class="row">
+	<div class="col-xs-6 col-sm-8">
+	<input type="text" ng-model="search" class="form-control" placeholder="Søg i studerende">
+</div>
+<div class="col-xs-6 col-sm-4 text-right">
+	<div class="btn-group">
+		<label class="btn btn-primary" ng-model="sort.active" uib-btn-checkbox>Aktive <span class="badge">{{numberOfActive()}}</span></label>
+		<label class="btn btn-primary" ng-model="sort.inactive" uib-btn-checkbox>Deaktiverede <span class="badge">{{numberOfInactive()}}</label>
+	</div>
+</div>
+</div>
+
+
 <table class="table table-hover selectable-table">
 	<thead>
 		<tr>
 			<th>Studie nr</th>
 			<th>Navn</th>
 			<th>Status</th>
-			<th></th>
+			<th width="29"></th>
 		</tr>
 	</thead>
 	<tbody>
-		<tr ng-repeat="student in students">
+		<tr ng-repeat="student in students | filter: specialSort : true | filter: search as results" ng-click="openStudent(student)">
 			<td>{{student.studentId}}</td>
 			<td>{{student.name}}</td>
-			<td>{{student.status}}</td>
-			<td width="72"><button type="button" class="btn btn-xs btn-primary" ng-click="openStudent(student)">Vis</button></td>
+			<td>{{student.status | studentStatus}}</td>
+			<td class="text-right"><button type="button" class="btn btn-xs btn-info">Vis</button></td>
+		</tr>
+		<tr ng-show="results.length==0">
+			<td colspan="4" class="text-center"><em>Ingen studerende matchede søgningen</em></td>
 		</tr>
 	</tbody>
 </table>
