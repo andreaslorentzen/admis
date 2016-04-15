@@ -19,33 +19,28 @@
             };
             $scope.search = "";
 
-            $scope.specialSort = function(student){
-                return ($scope.sort.active == true && student.status == 1) ||
-                       ($scope.sort.inactive == true && student.status != 1);
-            };
-
-            $scope.$watchCollection('sort', function () {
-                for(var s in $scope.sort){
-                    if($scope.sort[s])
+            $scope.$watchCollection('sort', function (sort) {
+                for(var s in sort){
+                    if(sort[s])
                         return;
                 }
-                $scope.sort.active = true;
+                sort.active = true;
             });
 
 
-            $scope.numberOfActive = function(){
+            $scope.numberOfActive = function(items){
                 var count = 0;
-                angular.forEach($scope.students, function(student) {
-                  if(student.status == 1)
+                angular.forEach(items, function(item) {
+                  if(item.status == 1)
                     count++;
                 });
                 return count;
             };
 
-            $scope.numberOfInactive = function(){
+            $scope.numberOfInactive = function(items){
                 var count = 0;
-                angular.forEach($scope.students, function(student) {
-                  if(student.status != 1)
+                angular.forEach(items, function(item) {
+                  if(item.status != 1)
                     count++;
                 });
                 return count;

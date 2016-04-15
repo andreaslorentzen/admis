@@ -13,12 +13,54 @@
     		$scope.selectedGroup;
 
     		apiService.getComponents().then(function(components){
-                console.log(components);
     			$scope.components = components;
     		});
     		apiService.getComponentGroups().then(function(componentGroups){
     			$scope.componentGroups = componentGroups;
     		});
+
+
+
+            $scope.groupSort = {
+                active: true,
+                inactive: false
+            };
+            $scope.$watchCollection('groupSort', function (sort) {
+                for(var s in sort){
+                    if(sort[s])
+                        return;
+                }
+                sort.active = true;
+            });
+            $scope.componentSort = {
+                active: true,
+                inactive: false
+            };
+            $scope.$watchCollection('componentSort', function (sort) {
+                for(var s in sort){
+                    if(sort[s])
+                        return;
+                }
+                sort.active = true;
+            });
+
+            $scope.numberOfActive = function(items){
+                var count = 0;
+                angular.forEach(items, function(item) {
+                  if(item.status == 1)
+                    count++;
+                });
+                return count;
+            };
+            $scope.numberOfInactive = function(items){
+                var count = 0;
+                angular.forEach(items, function(item) {
+                  if(item.status != 1)
+                    count++;
+                });
+                return count;
+            };
+
 
 
     		$scope.selectGroup = function(group){
@@ -70,5 +112,16 @@
             };
 
     	})
-
+        .filter('statusSort', function() {
+            return function(items, sortObj) {
+                var filtered = [];
+                angular.forEach(items, function(item) {
+                  if((sortObj.active == true && item.status == 1) ||
+                       (sortObj.inactive == true && item.status != 1)) {
+                    filtered.push(item);
+                  }
+                });
+                return filtered;
+            };
+        });
 })();

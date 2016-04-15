@@ -6,8 +6,8 @@
 </div>
 <div class="col-xs-6 col-sm-4 text-right">
 	<div class="btn-group">
-		<label class="btn btn-primary" ng-model="sort.active" uib-btn-checkbox>Aktive <span class="badge">{{numberOfActive()}}</span></label>
-		<label class="btn btn-primary" ng-model="sort.inactive" uib-btn-checkbox>Deaktiverede <span class="badge">{{numberOfInactive()}}</label>
+		<label class="btn btn-primary" ng-model="sort.active" uib-btn-checkbox>Aktive <span class="badge">{{numberOfActive(students)}}</span></label>
+		<label class="btn btn-primary" ng-model="sort.inactive" uib-btn-checkbox>Deaktiverede <span class="badge">{{numberOfInactive(students)}}</label>
 	</div>
 </div>
 </div>
@@ -23,7 +23,7 @@
 		</tr>
 	</thead>
 	<tbody>
-		<tr ng-repeat="student in students | filter: specialSort : true | filter: search as results" ng-click="openStudent(student)">
+		<tr ng-repeat="student in students | statusSort: sort : true | filter: search as results" ng-click="openStudent(student)">
 			<td>{{student.studentId}}</td>
 			<td>{{student.name}}</td>
 			<td>{{student.status | studentStatus}}</td>
