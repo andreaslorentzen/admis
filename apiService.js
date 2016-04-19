@@ -195,6 +195,31 @@
 
                     return deferred.promise;
                 },
+                getLoan: function(loanId){
+                    var deferred = $q.defer();
+                    var found = false;
+                    for (var i = 0; i < loans.length; i++) {
+                        if(loans[i].loanId == loanId){
+                            deferred.resolve(
+                                angular.copy(loans[i])
+                            );
+                            found = true;
+                            break;
+                        }
+                    }
+                    if(!found)
+                        deferred.reject();
+
+                    return deferred.promise;
+                },
+                updateLoan: function(loanId, dueDate){
+                    var deferred = $q.defer();
+
+                    
+                    deferred.resolve();
+
+                    return deferred.promise;
+                },
                 getStudent: function(studentId){
                     var deferred = $q.defer();
                     var found = false;
