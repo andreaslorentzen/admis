@@ -72,6 +72,7 @@
                     componentGroupId: 2,
                     status: 1,
                     name: "VGA HDMI Adapter",
+                    standardLoanTime: 1000,
                     components: []
                 },
                 {
@@ -173,6 +174,13 @@
                         status: 1,
                         components: []
                     });
+                    deferred.resolve(groups.length);
+
+                    return deferred.promise;
+                },
+                updateComponentGroup: function(groupId, data){
+                    var deferred = $q.defer();
+
                     deferred.resolve(groups.length);
 
                     return deferred.promise;
