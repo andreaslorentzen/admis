@@ -135,6 +135,7 @@
                     var deferred = $q.defer();
 
                     groups[groupId-1].components.push({
+                        componentId: groups[groupId-1].components.length+1,
                         barcode: parseInt(Math.random()*100000000),
                         number: number,
                         status: 0
