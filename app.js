@@ -26,6 +26,7 @@
 				})
 				.when('/components/:componentId', {
 					templateUrl: 'component/component.html',
+					controller: 'ComponentController'
 				})
 				.when('/loans', {
 					templateUrl: 'loans/loans.html',

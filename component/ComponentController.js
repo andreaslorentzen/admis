@@ -2,7 +2,7 @@
     'use strict';
 
     angular.module('mainApp')
-    	.controller('GroupController', function($scope, apiService, $routeParams, $uibModal, $location){
+    	.controller('ComponentController', function($scope, apiService, $routeParams, $uibModal, $location){
     		
     		if(!apiService.isLoggedIn()){
     			$location.url('login');
@@ -19,29 +19,34 @@
     		}
     		update();
 
-/*
+            $scope.editComponent = function(){
+                $uibModal.open({
+                    templateUrl: 'component/modal-edit-component.html',
+                    size: 'lg',
+                    controller: ModalEditGroupController,
+                    scope: $scope
+                }).result.then(function(){
+                    update();
+                });
+            };
+
             function ModalEditGroupController($scope, $uibModalInstance){
-                $scope.groupUpdate = angular.copy($scope.group);
+                $scope.componentUpdate = angular.copy($scope.component);
                 $scope.update = function(form){
-                    if($scope.groupUpdate.name == "")
-                        return;
-                    if($scope.groupUpdate.standardLoanTime !== parseInt($scope.groupUpdate.standardLoanTime))
+                    if($scope.componentUpdate.number == "")
                         return;
 
                     var updateObj = {};
-                    if($scope.groupUpdate.name != $scope.group.name){
-                        updateObj.name = $scope.groupUpdate.name;
+                    if($scope.componentUpdate.number != $scope.component.number){
+                        updateObj.number = $scope.componentUpdate.number;
                     }
-                    if($scope.groupUpdate.standardLoanTime != $scope.group.standardLoanTime){
-                        updateObj.standardLoanTime = $scope.groupUpdate.standardLoanTime;
+                    if($scope.componentUpdate.status != $scope.component.status){
+                        updateObj.status = $scope.componentUpdate.status;
                     }
-                    if($scope.groupUpdate.status != $scope.group.status){
-                        updateObj.status = $scope.groupUpdate.status;
-                    }
-                    if(updateObj.length == 0)
+                    if(angular.equals({}, updateObj))
                         return;
 
-                    apiService.updateComponentGroup(groupId, updateObj).then(function(){
+                    apiService.updateComponent(componentId, updateObj).then(function(){
                         $uibModalInstance.close();
                     });
                 };
@@ -49,7 +54,7 @@
                     $uibModalInstance.dismiss();
                 };
             }
-
+/*
             $scope.editGroup = function(){
                 $uibModal.open({
                     templateUrl: 'group/modal-edit-group.html',

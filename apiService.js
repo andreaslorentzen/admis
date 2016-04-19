@@ -131,6 +131,14 @@
 					return deferred.promise;
 
     			},
+                getComponent: function(componentId){
+                    var deferred = $q.defer();
+
+                    deferred.resolve(groups[0].components[componentId-1]);
+
+                    return deferred.promise;
+
+                },
                 createComponent: function(groupId, number){
                     var deferred = $q.defer();
 
@@ -140,6 +148,14 @@
                         number: number,
                         status: 0
                     });
+
+                    deferred.resolve();
+
+                    return deferred.promise;
+
+                },
+                updateComponent: function(componentId, data){
+                    var deferred = $q.defer();
 
                     deferred.resolve();
 
