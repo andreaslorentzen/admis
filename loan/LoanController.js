@@ -12,7 +12,6 @@
 			
 			apiService.getLoan(loanId).then(function(loan){
 				$scope.loan = loan;
-				console.log(loan);
 				apiService.getStudent(loan.studentId).then(function(student){
 					$scope.student = student;
 					console.log(student);
@@ -20,32 +19,52 @@
 			});
 
 			$scope.editDueDate = function(loan){
-                console.log(loan);
                 $uibModal.open({
                     templateUrl: 'loan/modal-edit-duedate.html',
                     size: 'lg',
-                    controller: ModalEditDueDateController
+                    controller: ModalEditLoanController,
+                    scope: $scope
                 }).result.then(function(loan){
 
                 });
             };
 // <uib-datepicker ng-model="dt" class="well well-sm" datepicker-options="options"></uib-datepicker>
-            function ModalEditDueDateController($scope, $uibModalInstance){
-                $scope.name = "";
+            function ModalEditLoanController($scope, $uibModalInstance){
+                $scope.dueDate = new Date($scope.loan.dueDate);
+                $scope.datePickerOptions = {
+                    minDate: new Date(),
+                    showWeeks: true
+                };
 
                 $scope.edit = function(){
-                    if($scope.name == "")
+                    if($scope.dueDate == "")
                         return;
 
-                    apiService.updateLoan($scope.loan.loanId, $scope.loan.dueDate).then(function(groupId){
-                        $uibModalInstance.close(groupId);
-
+                    apiService.updateLoan($scope.loan.loanId, $scope.loan.dueDate).then(function(){
+                        $uibModalInstance.close();
                     })
                 };
                 $scope.cancel = function(){
                 	console.log("HEJEHJEHEJEHEJHEHJHEJEHJEHJEJH");
                     $uibModalInstance.dismiss();
                 };
+                function getDayClass(data) {
+                    var date = data.date,
+                      mode = data.mode;
+                    if (mode === 'day') {
+                      var dayToCheck = new Date(date).setHours(0,0,0,0);
+
+                      for (var i = 0; i < $scope.events.length; i++) {
+                        var currentDay = new Date($scope.events[i].date).setHours(0,0,0,0);
+
+                        if (dayToCheck === currentDay) {
+                          return $scope.events[i].status;
+                        }
+                      }
+                    }
+
+                    return '';
+                  }
             };
 		})
 })();
