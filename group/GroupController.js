@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('mainApp')
+    angular.module('admisApp')
     	.controller('GroupController', function($scope, apiService, $routeParams, $uibModal, $location){
     		
     		if(!apiService.isLoggedIn()){

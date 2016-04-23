@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('mainApp')
+    angular.module('admisApp')
     	.controller('StudentsController', function($scope, apiService, $uibModal, $location){
     		
     		if(!apiService.isLoggedIn()){

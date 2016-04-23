@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('mainApp',['ui.bootstrap', 'ngRoute'])
+    angular.module('admisApp',['ui.bootstrap', 'ngRoute'])
     	.config(function($locationProvider, $routeProvider){
     		$locationProvider
 				.html5Mode(true)

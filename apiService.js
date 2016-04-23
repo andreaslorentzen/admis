@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('mainApp')
+    angular.module('admisApp')
     	.service('apiService', ['$http','$q', function($http,$q){
             var groups = [
                 {
