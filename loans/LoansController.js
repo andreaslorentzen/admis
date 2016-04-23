@@ -11,6 +11,9 @@
             apiService.getLoans().then(function(loans){
                 $scope.loans = loans;
             });
+            $scope.openLoan = function(loan){
+                $location.url("loans/"+loan.loanId);
+            };
 
     	})
 

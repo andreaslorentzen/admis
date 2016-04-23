@@ -1,0 +1,44 @@
+<h1>Lån</h1>
+
+<table style="width:30%">
+	<tr>
+		<td>Nummer:</td>
+		<td>{{loan.loanId}}</td>
+	</tr>
+	<tr>
+		<td>Komponent nr:</td>
+		<td>{{loan.componentId}}</td>
+	</tr>
+	<tr><td style="color:white">-</td></tr>
+	<tr>
+		<td>Udlånsdato:</td>
+		<td>{{loan.loanDate}}</td>
+	</tr>
+	<tr>
+		<td>Afleveringsdato:</td>
+		<td>{{loan.dueDate}}</td>
+		<td width="72"><button type="button" class="btn btn-xs btn-success" ng-click="editDueDate(loan)">Rediger</button></td>
+	</tr>
+	<tr>
+		<td>Leveringsdato:</td>
+		<td>{{loan.deliveryDate}}</td>
+	</tr>
+	<tr>
+		<td>Leveret dato:</td>
+		<td>{{loan.deliveredTo}}</td>
+	</tr>
+	<tr><td style="color:white">-</td></tr>
+	<tr>
+		<td>Studie nr:</td>
+		<td>{{loan.studentId}}</td>
+	</tr>
+	<tr>
+		<td>Navn:</td>
+		<td>{{student.name}}</td>
+	</tr>
+	<tr>
+		<td>Status:</td>
+		<td>{{loan.status | studentStatus}}</td>
+	</tr>
+	<tr>
+</table>

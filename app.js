@@ -32,6 +32,10 @@
 					templateUrl: 'loans/loans.html',
 					controller: 'LoansController'
 				})
+				.when('/loans/:loanId', {
+					templateUrl: 'loan/loan.html',
+					controller: 'LoanController'
+				})
 				.when('/students', {
 					templateUrl: 'students/students.html',
 					controller: 'StudentsController'
