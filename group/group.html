@@ -1,4 +1,4 @@
-<h1>Komponent gruppe</h1>
+<h1>Komponent gruppe <button type="button" class="btn btn-xs btn-success" ng-click="editGroup(group)">Rediger</button></h1>
 <h2>{{group.name}}</h2>
 <table class="table">
 	<thead>
@@ -11,10 +11,10 @@
 	</thead>
 	<tbody>
 		<tr ng-repeat="component in group.components | filter: search as results">
-			<td>{{component.barcode}} <button type="button" class="btn btn-xs btn-primary" ng-click="editGroup(group)">Print</button></td>
+			<td>{{component.barcode}} <button type="button" class="btn btn-xs btn-primary" ng-click="copyClipart(group)">Copy</button></td>
 			<td>{{component.number}}</td>
 			<td></td>
-			<td width="72"><button type="button" class="btn btn-xs btn-success" ng-click="editGroup(group)">Rediger</button></td>
+			<td width="72"><button type="button" class="btn btn-xs btn-success" ng-click="openComponent(component)">Rediger</button></td>
 		</tr>
 		<tr ng-show="results.length==0">
 			<td colspan="4" class="text-center"><em>Ingen komponenter matchede søgningen</em></td>

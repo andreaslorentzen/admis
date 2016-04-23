@@ -72,6 +72,7 @@
                     componentGroupId: 2,
                     status: 1,
                     name: "VGA HDMI Adapter",
+                    standardLoanTime: 1000,
                     components: []
                 },
                 {
@@ -130,14 +131,31 @@
 					return deferred.promise;
 
     			},
+                getComponent: function(componentId){
+                    var deferred = $q.defer();
+
+                    deferred.resolve(groups[0].components[componentId-1]);
+
+                    return deferred.promise;
+
+                },
                 createComponent: function(groupId, number){
                     var deferred = $q.defer();
 
                     groups[groupId-1].components.push({
+                        componentId: groups[groupId-1].components.length+1,
                         barcode: parseInt(Math.random()*100000000),
                         number: number,
                         status: 0
                     });
+
+                    deferred.resolve();
+
+                    return deferred.promise;
+
+                },
+                updateComponent: function(componentId, data){
+                    var deferred = $q.defer();
 
                     deferred.resolve();
 
@@ -173,6 +191,13 @@
                         status: 1,
                         components: []
                     });
+                    deferred.resolve(groups.length);
+
+                    return deferred.promise;
+                },
+                updateComponentGroup: function(groupId, data){
+                    var deferred = $q.defer();
+
                     deferred.resolve(groups.length);
 
                     return deferred.promise;
