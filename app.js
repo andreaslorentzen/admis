@@ -52,6 +52,13 @@
     		$scope.currentUri = function(){
     			return $location.url();
     		};
+    		$scope.alerts = [];
+    		$scope.showAlert = function(message, success){
+    			$scope.alerts.push({message: message, type: (success ? "success": "danger")});
+    		};
+    		$scope.closeAlert = function(index){
+    			$scope.alerts.splice(index, 1);
+    		};
     	})
 
 })();

@@ -113,10 +113,43 @@
                     deliveredTo: "13",
                 }
             ];
+
+            var apiUrl = "http://localhost:8081/sda/api";
+            var token;
+            if(typeof(Storage) !== "undefined") {
+                token = window.localStorage.getItem("token");
+            }
+
+            function requestHandler(httpPromise, successFunction){
+                var deferred = $q.defer();
+
+                httpPromise.then(function(response){
+                    if(response.status == 200){
+                        deferred.resolve(successFunction ? successFunction() : response.data);
+                    }
+                    else{
+                        deferred.reject(response);
+                    }
+                }, function(response){
+                    deferred.reject(response);
+                });
+
+                return deferred.promise;
+            };
+
     		return {
     			isLoggedIn: function(){
-    				return true;
+    				return false;
     			},
+                login: function(username, password){
+                    return requestHandler($http.post(apiUrl+"login", {username: username, password: password}), function(response){
+                        token = response.data.token;
+                        if(typeof(Storage) !== "undefined") {
+                            window.localStorage.setItem("token",token);
+                        }
+                        return {};
+                    });
+                },
     			getComponents: function(){
     				var deferred = $q.defer();
 

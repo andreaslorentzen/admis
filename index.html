@@ -26,6 +26,11 @@
 </head>
 <body ng-controller="AppController">
 	<div id="page-container" class="container">
+		<div style="position: fixed; left: 0; right: 0;">
+			<div class="container">
+				<uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)" dismiss-on-timeout="3000">{{alert.message}}</uib-alert>
+			</div>
+		</div>
 		<div class="row">
 			<div class="page-header">
 				<h3>Admis</h3>
