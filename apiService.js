@@ -131,6 +131,9 @@
                         deferred.reject(response);
                     }
                 }, function(response){
+                    if(response.status == 401){
+                        $location.url("/login");
+                    }
                     deferred.reject(response);
                 });
 
@@ -139,7 +142,7 @@
 
     		return {
     			isLoggedIn: function(){
-    				return false;
+    				return true;
     			},
                 login: function(username, password){
                     return requestHandler($http.post(apiUrl+"login", {username: username, password: password}), function(response){
@@ -162,7 +165,7 @@
     				deferred.resolve(components2);
 
 					return deferred.promise;
-
+                    return requestHandler($http.get(apiUrl+"Components"));
     			},
                 getComponent: function(componentId){
                     var deferred = $q.defer();
@@ -170,7 +173,7 @@
                     deferred.resolve(groups[0].components[componentId-1]);
 
                     return deferred.promise;
-
+                    return requestHandler($http.get(apiUrl+"Components/"+componentId));
                 },
                 createComponent: function(groupId, number){
                     var deferred = $q.defer();
@@ -185,6 +188,7 @@
                     deferred.resolve();
 
                     return deferred.promise;
+                    return requestHandler($http.post(apiUrl+"Components/", {groupId: groupId, number: number}));
 
                 },
                 updateComponent: function(componentId, data){
@@ -193,7 +197,7 @@
                     deferred.resolve();
 
                     return deferred.promise;
-
+                    return requestHandler($http.post(apiUrl+"Components/"+componentId, data));
                 },
     			getComponentGroups: function(){
     				var deferred = $q.defer();
@@ -203,6 +207,7 @@
     				);
 
 					return deferred.promise;
+                    return requestHandler($http.get(apiUrl+"ComponentGroups"));
 
     			},
                 getComponentGroup: function(groupId){
@@ -214,6 +219,7 @@
                     );
 
                     return deferred.promise;
+                    return requestHandler($http.get(apiUrl+"ComponentGroups/"+componentId));
 
                 },
                 createComponentGroup: function(name){
@@ -227,6 +233,8 @@
                     deferred.resolve(groups.length);
 
                     return deferred.promise;
+                    return requestHandler($http.post(apiUrl+"ComponentGroups/", {name: name}));
+
                 },
                 updateComponentGroup: function(groupId, data){
                     var deferred = $q.defer();
@@ -234,6 +242,7 @@
                     deferred.resolve(groups.length);
 
                     return deferred.promise;
+                    return requestHandler($http.post(apiUrl+"ComponentGroups/"+groupId, data));
                 },
                 getStudents: function(){
                     var deferred = $q.defer();
@@ -243,40 +252,7 @@
                     );
 
                     return deferred.promise;
-                },
-                getLoans: function(){
-                    var deferred = $q.defer();
-
-                    deferred.resolve(
-                        angular.copy(loans)
-                    );
-
-                    return deferred.promise;
-                },
-                getLoan: function(loanId){
-                    var deferred = $q.defer();
-                    var found = false;
-                    for (var i = 0; i < loans.length; i++) {
-                        if(loans[i].loanId == loanId){
-                            deferred.resolve(
-                                angular.copy(loans[i])
-                            );
-                            found = true;
-                            break;
-                        }
-                    }
-                    if(!found)
-                        deferred.reject();
-
-                    return deferred.promise;
-                },
-                updateLoan: function(loanId, dueDate){
-                    var deferred = $q.defer();
-
-                    
-                    deferred.resolve();
-
-                    return deferred.promise;
+                    return requestHandler($http.get(apiUrl+"Students/"));
                 },
                 getStudent: function(studentId){
                     var deferred = $q.defer();
@@ -294,6 +270,44 @@
                         deferred.reject();
 
                     return deferred.promise;
+                    return requestHandler($http.get(apiUrl+"Students/"+studentId));
+                },
+                getLoans: function(){
+                    var deferred = $q.defer();
+
+                    deferred.resolve(
+                        angular.copy(loans)
+                    );
+
+                    return deferred.promise;
+                    return requestHandler($http.get(apiUrl+"Loans/"));
+                },
+                getLoan: function(loanId){
+                    var deferred = $q.defer();
+                    var found = false;
+                    for (var i = 0; i < loans.length; i++) {
+                        if(loans[i].loanId == loanId){
+                            deferred.resolve(
+                                angular.copy(loans[i])
+                            );
+                            found = true;
+                            break;
+                        }
+                    }
+                    if(!found)
+                        deferred.reject();
+
+                    return deferred.promise;
+                    return requestHandler($http.get(apiUrl+"Loans/"+loanId));
+                },
+                updateLoan: function(loanId, dueDate){
+                    var deferred = $q.defer();
+
+                    
+                    deferred.resolve();
+
+                    return deferred.promise;
+                    return requestHandler($http.post(apiUrl+"Loans/"+loanId, {dueDate: dueDate}));
                 }
     		}
     	}])
