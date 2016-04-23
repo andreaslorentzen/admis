@@ -1,0 +1,25 @@
+<div class="modal-header">
+    <h3 class="modal-title">Rediger Komponent gruppe</h3>
+</div>
+<div class="modal-body">
+<form name="updateGroupForm" ng-submit="update(updateGroupForm)" no-validate>
+  <div class="form-group">
+    <label for="name">Navn</label>
+    <input type="text" class="form-control" name="name" ng-model="groupUpdate.name">
+  </div>
+  <div class="form-group">
+    <label for="standardLoanTime">Standard lånetid (dage)</label>
+    <input type="number" min="1" class="form-control" name="standardLoanTime" ng-model="groupUpdate.standardLoanTime">
+  </div>
+  <div class="form-group">
+    <div class="btn-group">
+        <label class="btn btn-primary" ng-model="groupUpdate.status" uib-btn-radio="1">{{1 | studentStatus}}</label>
+        <label class="btn btn-primary" ng-model="groupUpdate.status" uib-btn-radio="0">{{0 | studentStatus}}</label>
+    </div>
+  </div>
+</form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" ng-click="update(updateGroupForm)">Gem</button>
+    <button class="btn btn-default" ng-click="cancel()">Fortryd</button>
+</div>
