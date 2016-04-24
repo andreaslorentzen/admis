@@ -49,10 +49,10 @@
 		</tr>
 	</thead>
 	<tbody>
-		<tr ng-repeat="component in components | filter:{group: selectedGroup.name} : true | statusSort: componentSort : true | filter: search as results" ng-click="openComponent(component)">
+		<tr ng-repeat="component in components | filter:{componentGroup: selectedGroup.componentGroupId} : true | statusSort: componentSort : true | filter: search as results" ng-click="openComponent(component)">
 			<td>{{component.barcode}}</td>
-			<td>{{component.group}}</td>
-			<td>{{component.number}}</td>
+			<td>{{component.componentGroupId}}</td>
+			<td>{{component.componentNumber}}</td>
 			<td>
 				<span ng-if="!component.studentId && component.status == 0">Deaktiveret</span>
 				<span ng-if="!component.studentId && component.status == 1">-</span>

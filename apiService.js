@@ -114,7 +114,7 @@
                 }
             ];
 
-            var apiUrl = "http://localhost:8081/sda/api";
+            var apiUrl = "http://localhost:8080/komponentMis/api/";
             var token;
             if(typeof(Storage) !== "undefined") {
                 token = window.localStorage.getItem("token");
@@ -154,25 +154,9 @@
                     });
                 },
     			getComponents: function(){
-    				var deferred = $q.defer();
-
-                    var components2 = [];
-
-                    for (var g = 0; g < groups.length; g++) {
-                        angular.extend(components2, groups[g].components);
-                    }
-
-    				deferred.resolve(components2);
-
-					return deferred.promise;
                     return requestHandler($http.get(apiUrl+"Components"));
     			},
                 getComponent: function(componentId){
-                    var deferred = $q.defer();
-
-                    deferred.resolve(groups[0].components[componentId-1]);
-
-                    return deferred.promise;
                     return requestHandler($http.get(apiUrl+"Components/"+componentId));
                 },
                 createComponent: function(groupId, number){
@@ -200,40 +184,20 @@
                     return requestHandler($http.post(apiUrl+"Components/"+componentId, data));
                 },
     			getComponentGroups: function(){
-    				var deferred = $q.defer();
-
-    				deferred.resolve(
-    					angular.copy(groups)
-    				);
-
-					return deferred.promise;
                     return requestHandler($http.get(apiUrl+"ComponentGroups"));
 
     			},
                 getComponentGroup: function(groupId){
-                    var deferred = $q.defer();
-
-                    var group = angular.copy(groups[groupId-1]);
-                    deferred.resolve(
-                        group
-                    );
-
-                    return deferred.promise;
                     return requestHandler($http.get(apiUrl+"ComponentGroups/"+componentId));
 
                 },
                 createComponentGroup: function(name){
-                    var deferred = $q.defer();
-
-                    groups.push({
-                        name: name,
-                        status: 1,
-                        components: []
-                    });
-                    deferred.resolve(groups.length);
-
-                    return deferred.promise;
-                    return requestHandler($http.post(apiUrl+"ComponentGroups/", {name: name}));
+                    return requestHandler($http.put(apiUrl+"ComponentGroups", {name: name}, {
+                        headers: {
+                            "Accept": "application/JSON",
+                            "Content-Type": "application/JSON"
+                        }
+                    }));
 
                 },
                 updateComponentGroup: function(groupId, data){
@@ -245,59 +209,15 @@
                     return requestHandler($http.post(apiUrl+"ComponentGroups/"+groupId, data));
                 },
                 getStudents: function(){
-                    var deferred = $q.defer();
-
-                    deferred.resolve(
-                        angular.copy(students)
-                    );
-
-                    return deferred.promise;
-                    return requestHandler($http.get(apiUrl+"Students/"));
+                    return requestHandler($http.get(apiUrl+"Students"));
                 },
                 getStudent: function(studentId){
-                    var deferred = $q.defer();
-                    var found = false;
-                    for (var i = 0; i < students.length; i++) {
-                        if(students[i].studentId == studentId){
-                            deferred.resolve(
-                                angular.copy(students[i])
-                            );
-                            found = true;
-                            break;
-                        }
-                    }
-                    if(!found)
-                        deferred.reject();
-
-                    return deferred.promise;
                     return requestHandler($http.get(apiUrl+"Students/"+studentId));
                 },
                 getLoans: function(){
-                    var deferred = $q.defer();
-
-                    deferred.resolve(
-                        angular.copy(loans)
-                    );
-
-                    return deferred.promise;
-                    return requestHandler($http.get(apiUrl+"Loans/"));
+                    return requestHandler($http.get(apiUrl+"Loans"));
                 },
                 getLoan: function(loanId){
-                    var deferred = $q.defer();
-                    var found = false;
-                    for (var i = 0; i < loans.length; i++) {
-                        if(loans[i].loanId == loanId){
-                            deferred.resolve(
-                                angular.copy(loans[i])
-                            );
-                            found = true;
-                            break;
-                        }
-                    }
-                    if(!found)
-                        deferred.reject();
-
-                    return deferred.promise;
                     return requestHandler($http.get(apiUrl+"Loans/"+loanId));
                 },
                 updateLoan: function(loanId, dueDate){
