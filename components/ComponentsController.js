@@ -108,7 +108,7 @@
             $scope.openComponent = function(component){
                 if($scope.components.indexOf(component) == -1)
                     return;
-                $location.url("components/"+component.componentId);
+                $location.url("components/"+component.barcode);
             };
 
     	})

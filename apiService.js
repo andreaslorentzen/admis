@@ -156,8 +156,8 @@
     			getComponents: function(){
                     return requestHandler($http.get(apiUrl+"Components"));
     			},
-                getComponent: function(componentId){
-                    return requestHandler($http.get(apiUrl+"Components/"+componentId));
+                getComponent: function(barcode){
+                    return requestHandler($http.get(apiUrl+"Components/"+barcode));
                 },
                 createComponent: function(groupId, number){
                     var deferred = $q.defer();
@@ -175,28 +175,28 @@
                     return requestHandler($http.post(apiUrl+"Components/", {groupId: groupId, number: number}));
 
                 },
-                updateComponent: function(componentId, data){
+                updateComponent: function(barcode, data){
                     var deferred = $q.defer();
 
                     deferred.resolve();
 
                     return deferred.promise;
-                    return requestHandler($http.post(apiUrl+"Components/"+componentId, data));
+                    return requestHandler($http.post(apiUrl+"Components/"+barcode, data));
                 },
     			getComponentGroups: function(){
                     return requestHandler($http.get(apiUrl+"ComponentGroups"));
 
     			},
                 getComponentGroup: function(groupId){
-                    return requestHandler($http.get(apiUrl+"ComponentGroups/"+componentId));
+                    return requestHandler($http.get(apiUrl+"ComponentGroups/"+groupId));
 
                 },
                 createComponentGroup: function(name){
-                    return requestHandler($http.put(apiUrl+"ComponentGroups", {name: name}, {
-                        headers: {
-                            "Accept": "application/JSON",
-                            "Content-Type": "application/JSON"
-                        }
+                    return requestHandler($http.put(apiUrl+"ComponentGroups", {
+                        componentGroupId: 0,
+                        name: name,
+                        standardLoanDuration: 100,
+                        status: 1
                     }));
 
                 },

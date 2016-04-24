@@ -8,12 +8,12 @@
     			$location.url('login');
     		}
 
-    		var componentId = $routeParams.componentId;
+    		var barcode = $routeParams.barcode;
 
     		$scope.component = {};
 
     		function update(){
-    			apiService.getComponent(componentId).then(function(component){
+    			apiService.getComponent(barcode).then(function(component){
 					$scope.component = component;
 				});
     		}
@@ -46,7 +46,7 @@
                     if(angular.equals({}, updateObj))
                         return;
 
-                    apiService.updateComponent(componentId, updateObj).then(function(){
+                    apiService.updateComponent(barcode, updateObj).then(function(){
                         $uibModalInstance.close();
                     });
                 };

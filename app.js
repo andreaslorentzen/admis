@@ -24,7 +24,7 @@
 					templateUrl: 'group/group.html',
 					controller: 'GroupController'
 				})
-				.when('/components/:componentId', {
+				.when('/components/:barcode', {
 					templateUrl: 'component/component.html',
 					controller: 'ComponentController'
 				})
