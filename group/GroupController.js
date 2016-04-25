@@ -36,7 +36,7 @@
                         updateObj.standardLoanTime = $scope.groupUpdate.standardLoanTime;
                     }
                     if($scope.groupUpdate.status != $scope.group.status){
-                        updateObj.status = $scope.groupUpdate.status;
+                    //    updateObj.status = $scope.groupUpdate.status;
                     }
                     if(updateObj.length == 0)
                         return;

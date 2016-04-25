@@ -114,7 +114,7 @@
                 }
             ];
 
-            var apiUrl = "http://localhost:8080/komponentMis/api/";
+            var apiUrl = "http://54.93.171.44:8080/KomponentMis/api/";
             var token;
             if(typeof(Storage) !== "undefined") {
                 token = window.localStorage.getItem("token");
@@ -183,6 +183,7 @@
                     return deferred.promise;
                     return requestHandler($http.post(apiUrl+"Components/"+barcode, data));
                 },
+                
     			getComponentGroups: function(){
                     return requestHandler($http.get(apiUrl+"ComponentGroups"));
 
@@ -201,13 +202,9 @@
 
                 },
                 updateComponentGroup: function(groupId, data){
-                    var deferred = $q.defer();
-
-                    deferred.resolve(groups.length);
-
-                    return deferred.promise;
                     return requestHandler($http.post(apiUrl+"ComponentGroups/"+groupId, data));
                 },
+
                 getStudents: function(){
                     return requestHandler($http.get(apiUrl+"Students"));
                 },
