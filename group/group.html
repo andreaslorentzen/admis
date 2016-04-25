@@ -13,7 +13,7 @@
 		<tr ng-repeat="component in group.components | filter: search as results">
 			<td>{{component.barcode}} <button type="button" class="btn btn-xs btn-primary" ng-click="copyClipart(group)">Copy</button></td>
 			<td>{{component.number}}</td>
-			<td></td>
+			<td>{{component.status | studentStatus}}</td>
 			<td width="72"><button type="button" class="btn btn-xs btn-success" ng-click="openComponent(component)">Rediger</button></td>
 		</tr>
 		<tr ng-show="results.length==0">

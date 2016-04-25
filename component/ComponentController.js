@@ -23,22 +23,22 @@
                 $uibModal.open({
                     templateUrl: 'component/modal-edit-component.html',
                     size: 'lg',
-                    controller: ModalEditGroupController,
+                    controller: ModalEditComponentController,
                     scope: $scope
                 }).result.then(function(){
                     update();
                 });
             };
 
-            function ModalEditGroupController($scope, $uibModalInstance){
+            function ModalEditComponentController($scope, $uibModalInstance){
                 $scope.componentUpdate = angular.copy($scope.component);
                 $scope.update = function(form){
-                    if($scope.componentUpdate.number == "")
+                    if($scope.componentUpdate.componentNumber == "")
                         return;
 
                     var updateObj = {};
-                    if($scope.componentUpdate.number != $scope.component.number){
-                        updateObj.number = $scope.componentUpdate.number;
+                    if($scope.componentUpdate.componentNumber != $scope.component.componentNumber){
+                        updateObj.componentNumber = $scope.componentUpdate.componentNumber;
                     }
                     if($scope.componentUpdate.status != $scope.component.status){
                         updateObj.status = $scope.componentUpdate.status;

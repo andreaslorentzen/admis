@@ -153,6 +153,7 @@
                         return {};
                     });
                 },
+                
     			getComponents: function(){
                     return requestHandler($http.get(apiUrl+"Components"));
     			},
@@ -160,33 +161,14 @@
                     return requestHandler($http.get(apiUrl+"Components/"+barcode));
                 },
                 createComponent: function(groupId, number){
-                    var deferred = $q.defer();
-
-                    groups[groupId-1].components.push({
-                        componentId: groups[groupId-1].components.length+1,
-                        barcode: parseInt(Math.random()*100000000),
-                        number: number,
-                        status: 0
-                    });
-
-                    deferred.resolve();
-
-                    return deferred.promise;
-                    return requestHandler($http.post(apiUrl+"Components/", {groupId: groupId, number: number}));
-
+                    return requestHandler($http.put(apiUrl+"Components/", {componentGroupId: groupId, componentNumber: number}));
                 },
                 updateComponent: function(barcode, data){
-                    var deferred = $q.defer();
-
-                    deferred.resolve();
-
-                    return deferred.promise;
                     return requestHandler($http.post(apiUrl+"Components/"+barcode, data));
                 },
-                
+
     			getComponentGroups: function(){
                     return requestHandler($http.get(apiUrl+"ComponentGroups"));
-
     			},
                 getComponentGroup: function(groupId){
                     return requestHandler($http.get(apiUrl+"ComponentGroups/"+groupId));
