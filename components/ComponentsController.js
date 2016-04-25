@@ -8,17 +8,32 @@
     			$location.url('login');
     		}
 
-    		$scope.components = [];
-    		$scope.componentGroups = [];
+    		$scope.components;
+    		$scope.componentGroups;
     		$scope.selectedGroup;
+            var groupNameMap = [];
 
     		apiService.getComponents().then(function(components){
     			$scope.components = components;
+                addComponentGroupNames();
     		});
     		apiService.getComponentGroups().then(function(componentGroups){
-    			$scope.componentGroups = componentGroups;
+                for (var i = 0; i < componentGroups.length; i++) {
+                    groupNameMap[componentGroups[i].componentGroupId] = componentGroups[i].name;
+                }
+                $scope.componentGroups = componentGroups;
+                addComponentGroupNames();
     		});
 
+
+            function addComponentGroupNames(){
+                if($scope.components == undefined || $scope.componentGroups == undefined)
+                    return;
+
+                $scope.components.forEach(function(component){
+                    component.componentGroupName = groupNameMap[component.componentGroupId];
+                });
+            }
 
 
             $scope.groupSort = {

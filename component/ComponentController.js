@@ -43,6 +43,7 @@
                     if($scope.componentUpdate.status != $scope.component.status){
                         updateObj.status = $scope.componentUpdate.status;
                     }
+                    console.log(updateObj);
                     if(angular.equals({}, updateObj))
                         return;
 

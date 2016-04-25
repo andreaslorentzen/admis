@@ -23,9 +23,10 @@
             function ModalEditGroupController($scope, $uibModalInstance){
                 $scope.groupUpdate = angular.copy($scope.group);
                 $scope.update = function(form){
+                    console.log("sgd");
                     if($scope.groupUpdate.name == "")
                         return;
-                    if($scope.groupUpdate.standardLoanDuration !== parseInt($scope.groupUpdate.standardLoanDuration))
+                    if($scope.groupUpdate.standardLoanDuration != ""+parseInt($scope.groupUpdate.standardLoanDuration))
                         return;
 
                     var updateObj = {};
@@ -38,6 +39,7 @@
                     if($scope.groupUpdate.status != $scope.group.status){
                         updateObj.status = $scope.groupUpdate.status;
                     }
+
                     if(updateObj.length == 0)
                         return;
 

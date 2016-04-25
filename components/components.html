@@ -51,7 +51,7 @@
 	<tbody>
 		<tr ng-repeat="component in components | filter:{componentGroup: selectedGroup.componentGroupId} : true | statusSort: componentSort : true | filter: search as results" ng-click="openComponent(component)">
 			<td>{{component.barcode}}</td>
-			<td>{{component.componentGroupId}}</td>
+			<td>{{component.componentGroupName}}</td>
 			<td>{{component.componentNumber}}</td>
 			<td>
 				<span ng-if="!component.studentId && component.status == 0">Deaktiveret</span>
