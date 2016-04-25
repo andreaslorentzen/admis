@@ -25,15 +25,15 @@
                 $scope.update = function(form){
                     if($scope.groupUpdate.name == "")
                         return;
-                    if($scope.groupUpdate.standardLoanTime !== parseInt($scope.groupUpdate.standardLoanTime))
+                    if($scope.groupUpdate.standardLoanDuration !== parseInt($scope.groupUpdate.standardLoanDuration))
                         return;
 
                     var updateObj = {};
                     if($scope.groupUpdate.name != $scope.group.name){
                         updateObj.name = $scope.groupUpdate.name;
                     }
-                    if($scope.groupUpdate.standardLoanTime != $scope.group.standardLoanTime){
-                        updateObj.standardLoanTime = $scope.groupUpdate.standardLoanTime;
+                    if($scope.groupUpdate.standardLoanDuration != $scope.group.standardLoanDuration){
+                        updateObj.standardLoanDuration = $scope.groupUpdate.standardLoanDuration;
                     }
                     if($scope.groupUpdate.status != $scope.group.status){
                         updateObj.status = $scope.groupUpdate.status;

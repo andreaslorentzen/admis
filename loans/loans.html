@@ -3,19 +3,19 @@
 	<thead>
 		<tr>
 			<th>Nummer</th>
-			<th>Komponent nr</th>
+			<th>Stregkode</th>
 			<th>Studie nr</th>
 			<th>Udlånsdato</th>
 			<th>Afleveringsdato</th>
 			<th>Leveringsdato</th>
-			<th>Leveret dato</th>
+			<th>Leveret til</th>
 		</tr>
 	</thead>
 	<tbody>
 		<tr ng-repeat="loan in loans">
 			<td>{{loan.loanId}}</td>
-			<td>{{loan.componentId}}</td>
-			<td>{{loan.studentId}}</td>
+			<td>{{loan.barcode}}</td>
+			<td><a ng-if="loan.studentId" href="students/{{loan.studentId}}">{{loan.studentId}}</a></td>
 			<td>{{loan.loanDate}}</td>
 			<td>{{loan.dueDate}}</td>
 			<td>{{loan.deliveryDate}}</td>
@@ -28,7 +28,7 @@
 
 <!--
                     loanId: "0",
-                    componentId: "0"
+                    barcode: "0"
                     studentId: "s144886"
                     loanDate: "12"
                     dueDate: "12"

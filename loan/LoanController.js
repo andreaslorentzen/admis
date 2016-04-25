@@ -12,10 +12,6 @@
 			
 			apiService.getLoan(loanId).then(function(loan){
 				$scope.loan = loan;
-				apiService.getStudent(loan.studentId).then(function(student){
-					$scope.student = student;
-					console.log(student);
-				});
 			});
 
 			$scope.editDueDate = function(loan){
@@ -30,7 +26,7 @@
             };
 // <uib-datepicker ng-model="dt" class="well well-sm" datepicker-options="options"></uib-datepicker>
             function ModalEditLoanController($scope, $uibModalInstance){
-                $scope.dueDate = new Date($scope.loan.dueDate);
+                $scope.dueDate = Date.parse($scope.loan.dueDate);
                 $scope.datePickerOptions = {
                     minDate: new Date(),
                     showWeeks: true
@@ -39,13 +35,11 @@
                 $scope.edit = function(){
                     if($scope.dueDate == "")
                         return;
-
-                    apiService.updateLoan($scope.loan.loanId, $scope.loan.dueDate).then(function(){
+                    apiService.updateLoan($scope.loan.loanId, $scope.dueDate).then(function(){
                         $uibModalInstance.close();
                     })
                 };
                 $scope.cancel = function(){
-                	console.log("HEJEHJEHEJEHEJHEHJHEJEHJEHJEJH");
                     $uibModalInstance.dismiss();
                 };
                 function getDayClass(data) {

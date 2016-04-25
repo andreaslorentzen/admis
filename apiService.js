@@ -153,7 +153,7 @@
                         return {};
                     });
                 },
-                
+
     			getComponents: function(){
                     return requestHandler($http.get(apiUrl+"Components"));
     			},
@@ -200,12 +200,6 @@
                     return requestHandler($http.get(apiUrl+"Loans/"+loanId));
                 },
                 updateLoan: function(loanId, dueDate){
-                    var deferred = $q.defer();
-
-                    
-                    deferred.resolve();
-
-                    return deferred.promise;
                     return requestHandler($http.post(apiUrl+"Loans/"+loanId, {dueDate: dueDate}));
                 }
     		}
