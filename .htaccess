@@ -1,9 +1,9 @@
 <IfModule mod_rewrite.c>
 RewriteEngine On
 RewriteBase /admis/
-RewriteRule ^/index\.html$ - [L]
+RewriteRule ^/admis/index\.html$ - [L]
 
-RewriteCond %{REQUEST_URI} !.*\.(js|html|css|map|json)$
+RewriteCond %{REQUEST_URI} !\.(js|html|css|map|json)$
 RewriteCond %{REQUEST_URI} !robots\.txt$
 RewriteRule . /admis/index.html [L]
 </IfModule>
