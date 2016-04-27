@@ -12,6 +12,7 @@
     		$scope.componentGroups;
     		$scope.selectedGroup;
             var groupNameMap = [];
+            var componentsCount = [];
 
     		apiService.getComponents().then(function(components){
     			$scope.components = components;
@@ -20,6 +21,7 @@
     		apiService.getComponentGroups().then(function(componentGroups){
                 for (var i = 0; i < componentGroups.length; i++) {
                     groupNameMap[componentGroups[i].componentGroupId] = componentGroups[i].name;
+                    componentsCount[componentGroups[i].componentGroupId] = 0;
                 }
                 $scope.componentGroups = componentGroups;
                 addComponentGroupNames();
@@ -32,6 +34,10 @@
 
                 $scope.components.forEach(function(component){
                     component.componentGroupName = groupNameMap[component.componentGroupId];
+                    componentsCount[component.componentGroupId]++;
+                });
+                $scope.componentGroups.forEach(function(componentGroup){
+                    componentGroup.componentsCount = componentsCount[componentGroup.componentGroupId];
                 });
             }
 
