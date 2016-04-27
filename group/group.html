@@ -1,5 +1,8 @@
 <h1>Komponent gruppe <button type="button" class="btn btn-xs btn-success" ng-click="editGroup(group)">Rediger</button></h1>
 <h2>{{group.name}}</h2>
+<p><strong>Standard lånetid: </strong>{{group.standardLoanDuration}} dage</p>
+<p><strong>Status: </strong>{{group.status | studentStatus}}</p>
+
 <table class="table">
 	<thead>
 		<tr>
