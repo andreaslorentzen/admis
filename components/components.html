@@ -35,9 +35,9 @@
 </div>
 <div class="btn-group">
     <label class="btn btn-primary" ng-model="componentSort.active" uib-btn-checkbox>Aktive <span class="badge">{{numberOfActive(components)}}</span></label>
-    <label class="btn btn-primary" ng-model="componentSort.loaned" uib-btn-checkbox>Udlånt</label>
     <label class="btn btn-primary" ng-model="componentSort.inactive" uib-btn-checkbox>Deaktiverede <span class="badge">{{numberOfInactive(components)}}</span></label>
 </div>
+<button type="button" class="btn btn-primary" ng-click="componentSort.loaned = (componentSort.loaned+1)%3">{{componentSort.loaned == 0 ? 'Alle' : (componentSort.loaned == 1 ? 'Udlånt' : 'Ikke udlånt')}}</button>
 <table class="table table-hover selectable-table">
 	<thead>
 		<tr>
@@ -49,7 +49,7 @@
 		</tr>
 	</thead>
 	<tbody>
-		<tr ng-repeat="component in components | filter:{componentGroup: selectedGroup.componentGroupId} : true | statusSort: componentSort : true | filter: search as results" ng-click="openComponent(component)">
+		<tr ng-repeat="component in components | filter:{componentGroup: selectedGroup.componentGroupId} : true | componentSort: componentSort : true | filter: search as results" ng-click="openComponent(component)">
 			<td>{{component.barcode}}</td>
 			<td>{{component.componentGroupName}}</td>
 			<td>{{component.componentNumber}}</td>

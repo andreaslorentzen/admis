@@ -55,14 +55,13 @@
             });
             $scope.componentSort = {
                 active: true,
-                inactive: false
+                inactive: false,
+                loaned: 0
             };
-            $scope.$watchCollection('componentSort', function (sort) {
-                for(var s in sort){
-                    if(sort[s])
-                        return;
-                }
-                sort.active = true;
+            $scope.$watchCollection('componentSort', function (componentSort) {
+                if(componentSort.active && componentSort.inactive)
+                    return;
+                componentSort.active = true;
             });
 
             $scope.numberOfActive = function(items){
@@ -132,6 +131,29 @@
             };
 
     	})
+        .filter('componentSort', function() {
+            return function(items, sortObj) {
+                var filtered = [];
+                angular.forEach(items, function(item) {
+                  if(
+                        (sortObj.loaned==0 ||(sortObj.loaned==1 && item.studentId != "") ||
+                        (sortObj.loaned==2 && item.studentId == "")) &&
+                        ((sortObj.active == true && item.status == 1) ||
+                     (sortObj.inactive == true && item.status != 1))
+
+
+                    
+                     
+                    ) {
+                    filtered.push(item);
+                  }
+                });
+                return filtered;
+            };
+        })
+        /*
+
+        */
         .filter('statusSort', function() {
             return function(items, sortObj) {
                 var filtered = [];
