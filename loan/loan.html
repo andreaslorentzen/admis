@@ -12,7 +12,7 @@
 	<tr>
 		<td>Afleveringsdato:</td>
 		<td>{{loan.dueDate}}</td>
-		<td width="72"><button type="button" class="btn btn-xs btn-success" ng-click="editDueDate(loan)">Rediger</button></td>
+		<td width="72"><button ng-if="!loan.deliveryDate" type="button" class="btn btn-xs btn-success" ng-click="editDueDate(loan)">Rediger</button></td>
 	</tr>
 
 	<tr>

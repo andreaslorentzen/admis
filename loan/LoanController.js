@@ -2,7 +2,7 @@
 	'use strict';
 
 	angular.module('admisApp')
-		.controller('LoanController', function($scope, apiService, $uibModal, $location, $routeParams){
+		.controller('LoanController', function($scope, apiService, $uibModal, $location, $routeParams, $filter){
 			
 			if(!apiService.isLoggedIn()){
 				$location.url('login');
@@ -26,7 +26,9 @@
             };
 // <uib-datepicker ng-model="dt" class="well well-sm" datepicker-options="options"></uib-datepicker>
             function ModalEditLoanController($scope, $uibModalInstance){
-                $scope.dueDate = Date.parse($scope.loan.dueDate);
+                $scope.dueDate = Date.parse(
+                    $scope.loan.dueDate.substr(3,3)+$scope.loan.dueDate.substr(0,3)+$scope.loan.dueDate.substr(6,4)
+                );
                 $scope.datePickerOptions = {
                     minDate: new Date(),
                     showWeeks: true
@@ -35,7 +37,7 @@
                 $scope.edit = function(){
                     if($scope.dueDate == "")
                         return;
-                    apiService.updateLoan($scope.loan.loanId, $scope.dueDate).then(function(){
+                    apiService.updateLoan($scope.loan.loanId, $filter('date')($scope.dueDate, "dd-MM-yyyy", "UTC")).then(function(){
                         $uibModalInstance.close();
                     })
                 };
