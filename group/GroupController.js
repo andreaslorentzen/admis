@@ -10,7 +10,7 @@
 
     		var groupId = $routeParams.groupId;
 
-    		$scope.group = {};
+    		$scope.group;
 
     		function update(){
     			apiService.getComponentGroup(groupId).then(function(group){
@@ -18,7 +18,6 @@
 				});
     		}
     		update();
-
 
             function ModalEditGroupController($scope, $uibModalInstance){
                 $scope.groupUpdate = angular.copy($scope.group);

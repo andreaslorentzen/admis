@@ -2,118 +2,7 @@
     'use strict';
 
     angular.module('admisApp')
-    	.service('apiService', ['$http','$q', function($http,$q){
-            var groups = [
-                {
-                    componentGroupId: 1,
-                    name: "RFID Reader",
-                    status: 0,
-                    components: [
-                        {
-                            componentId: 1,
-                            barcode: 2321232,
-                            group: "RFID Reader",
-                            number: "001",
-                            status: 0
-                        },
-                        {
-                            componentId: 2,
-                            barcode: 2321231,
-                            group: "RFID Reader",
-                            number: "002",
-                            status: 1,
-                            studentId: "s144886"
-                        },
-                        {
-                            componentId: 3,
-                            barcode: 2321233,
-                            group: "RFID Reader",
-                            number: "003",
-                            status: 1
-                        },
-                        {
-                            componentId: 4,
-                            barcode: 2328232,
-                            group: "RFID Reader",
-                            number: "004",
-                            status: 0
-                        },
-                        {
-                            componentId: 5,
-                            barcode: 2561232,
-                            group: "RFID Reader",
-                            number: "005",
-                            status: 0
-                        },
-                        {
-                            componentId: 6,
-                            barcode: 2323732,
-                            group: "RFID Reader",
-                            number: "006",
-                            status: 0
-                        },
-                        {
-                            componentId: 7,
-                            barcode: 2329632,
-                            group: "RFID Reader",
-                            number: "007",
-                            status: 0
-                        },
-                        {
-                            componentId: 8,
-                            barcode: 2303432,
-                            group: "RFID Reader",
-                            number: "008",
-                            status: 0
-                        }
-                    ]
-                },
-                {
-                    componentGroupId: 2,
-                    status: 1,
-                    name: "VGA HDMI Adapter",
-                    standardLoanTime: 1000,
-                    components: []
-                },
-                {
-                    componentGroupId: 3,
-                    name: "Zypo board",
-                    status: 1,
-                    components: []
-                }
-            ];
-            var students = [
-                {
-                    studentId: "s144886",
-                    name: "Andreas",
-                    status: 1
-                },
-                {
-                    studentId: "s144880",
-                    name: "Thomas"
-                }
-            ];
-            var loans = [
-                {
-                    loanId: "0",
-                    componentId: "0",
-                    studentId: "s144886",
-                    loanDate: "12",
-                    dueDate: "12",
-                    deliveryDate: "12",
-                    deliveredTo: "12",
-                },
-                {
-                    loanId: "1",
-                    componentId: "1",
-                    studentId: "s144880",
-                    loanDate: "13",
-                    dueDate: "13",
-                    deliveryDate: "13",
-                    deliveredTo: "13",
-                }
-            ];
-
+    	.service('apiService', ['$http','$q','appService', function($http,$q,$scope){
             var apiUrl = "http://54.93.171.44:8080/KomponentMis/api/";
             var token;
             if(typeof(Storage) !== "undefined") {
@@ -133,6 +22,7 @@
                 }, function(response){
                     if(response.status == 401){
                         $location.url("/login");
+                        $scope.showAlert("Du skal være logget ind");
                     }
                     deferred.reject(response);
                 });

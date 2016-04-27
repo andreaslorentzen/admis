@@ -14,8 +14,8 @@
 	</thead>
 	<tbody>
 		<tr ng-repeat="component in group.components | filter: search as results">
-			<td>{{component.barcode}} <button type="button" class="btn btn-xs btn-primary" ng-click="copyClipart(group)">Copy</button></td>
-			<td>{{component.number}}</td>
+			<td>{{component.barcode}}</td>
+			<td>{{component.componentNumber}}</td>
 			<td>{{component.status | studentStatus}}</td>
 			<td width="72"><button type="button" class="btn btn-xs btn-success" ng-click="openComponent(component)">Rediger</button></td>
 		</tr>
