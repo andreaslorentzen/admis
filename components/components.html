@@ -24,7 +24,7 @@
 				<span ng-if="group.status == 0" class="text-warning">Deaktiveret</span>
 				<span ng-if="group.status == 1" class="text-success">Aktiv</span>
 			</td>
-			<td width="72"><button type="button" class="btn btn-xs btn-success" ng-click="editGroup(group)">Rediger</button></td>
+			<td class="show-button"><button type="button" class="btn btn-xs btn-info" ng-click="editGroup(group)">Vis</button></td>
 		</tr>
 	</tbody>
 </table>
@@ -58,7 +58,7 @@
 				<span ng-if="!component.studentId && component.status == 1">-</span>
 				<a ng-if="component.studentId" href="students/{{component.studentId}}">{{component.studentId}}</a>
 			</td>
-			<td width="40"><button type="button" class="btn btn-xs btn-info">Vis</button></td>
+			<td class="show-button"><button type="button" class="btn btn-xs btn-info">Vis</button></td>
 		</tr>
 		<tr ng-show="results.length==0">
 			<td colspan="4" class="text-center"><em>Ingen komponenter matchede søgningen</em></td>

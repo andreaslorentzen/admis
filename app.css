@@ -12,6 +12,9 @@ html{
 table.selectable-table tbody tr{
 	cursor: pointer;
 }
+table td.show-button{
+	width: 45px;
+}
 
 
 

@@ -99,10 +99,9 @@
                     if($scope.name == "")
                         return;
 
-                    apiService.createComponentGroup($scope.name).then(function(groupId){
-                        $uibModalInstance.close(groupId);
-
-                    })
+                    apiService.createComponentGroup($scope.name).then(function(data){
+                        $uibModalInstance.close(data.componentGroupId);
+                    });
                 };
                 $scope.cancel = function(){
                     $uibModalInstance.dismiss();

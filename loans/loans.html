@@ -1,26 +1,31 @@
 <h1>Alle Lån</h1>
+<div class="btn-group">
+    <label class="btn btn-primary" ng-model="loanSort.active" uib-btn-checkbox>Ikke afleveret</label>
+    <label class="btn btn-primary" ng-model="loanSort.inactive" uib-btn-checkbox>Afleveret</label>
+</div>
 <table class="table table-hover selectable-table">
 	<thead>
 		<tr>
-			<th>Nummer</th>
+			<th>Lån ID</th>
 			<th>Stregkode</th>
 			<th>Studie nr</th>
 			<th>Udlånsdato</th>
 			<th>Afleveringsdato</th>
 			<th>Leveringsdato</th>
 			<th>Leveret til</th>
+			<th></th>
 		</tr>
 	</thead>
 	<tbody>
-		<tr ng-repeat="loan in loans">
+		<tr ng-repeat="loan in loans | statusSort: loanSort : true">
 			<td>{{loan.loanId}}</td>
-			<td>{{loan.barcode}}</td>
+			<td><a href="components/{{loan.barcode}}">{{loan.barcode}}</a></td>
 			<td><a ng-if="loan.studentId" href="students/{{loan.studentId}}">{{loan.studentId}}</a></td>
 			<td>{{loan.loanDate}}</td>
 			<td>{{loan.dueDate}}</td>
 			<td>{{loan.deliveryDate}}</td>
 			<td>{{loan.deliveredTo}}</td>
-			<td width="72"><button type="button" class="btn btn-xs btn-primary" ng-click="openLoan(loan)">Vis</button></td>
+			<td class="show-button"><button type="button" class="btn btn-xs btn-info" ng-click="openLoan(loan)">Vis</button></td>
 		</tr>
 	</tbody>
 </table>
