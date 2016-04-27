@@ -161,7 +161,7 @@
                     return requestHandler($http.get(apiUrl+"Components/"+barcode));
                 },
                 createComponent: function(groupId, number){
-                    return requestHandler($http.put(apiUrl+"Components/", {componentGroupId: groupId, componentNumber: number}));
+                    return requestHandler($http.put(apiUrl+"Components/", {barcode: 0, status: 1, componentGroupId: groupId, componentNumber: number}));
                 },
                 updateComponent: function(barcode, data){
                     return requestHandler($http.post(apiUrl+"Components/"+barcode, data));
