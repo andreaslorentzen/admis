@@ -23,7 +23,27 @@
                 }
             });
 
-            function requestHandler(httpPromise, successFunction){
+            function requestHandler(method, uri, requestData, successFunction){
+                var config = {
+                    headers: {
+                        "Access-token": scope.token
+                    }
+                }
+                var httpPromise;
+                switch(method.toLowerCase()){
+                    case "get":
+                        httpPromise = $http.get(apiUrl+uri,config);
+                        break;
+                    case "put":
+                        httpPromise = $http.put(apiUrl+uri, requestData,config);
+                        break;
+                    case "post":
+                        httpPromise = $http.post(apiUrl+uri, requestData,config);
+                        break;
+                    default:
+                        return false;
+                }
+
                 var deferred = $q.defer();
 
                 httpPromise.then(function(response){
@@ -51,7 +71,7 @@
                 login: function(username, password){
                     var deferred = $q.defer();
 
-                    scope.token = "sdfafsfuafjlkjndsfkdsa";
+                    scope.token = Math.random().toString(36).substring(7);
                     
                     deferred.resolve();
 
@@ -66,52 +86,57 @@
                 //    $location.url('login');
                 },
     			getComponents: function(){
-                    return requestHandler($http.get(apiUrl+"Components"));
+                    return requestHandler("get", "Components");
     			},
                 getComponent: function(barcode){
-                    return requestHandler($http.get(apiUrl+"Components/"+barcode));
+                    return requestHandler("get", "Components/"+barcode);
                 },
                 createComponent: function(groupId, number){
-                    return requestHandler($http.put(apiUrl+"Components/", {barcode: 0, status: 1, componentGroupId: groupId, componentNumber: number}));
+                    return requestHandler("put", "Components/", {
+                        barcode: 0,
+                        status: 1,
+                        componentGroupId: groupId,
+                        componentNumber: number
+                    });
                 },
                 updateComponent: function(barcode, data){
-                    return requestHandler($http.post(apiUrl+"Components/"+barcode, data));
+                    return requestHandler("post", "Components/"+barcode, data);
                 },
 
     			getComponentGroups: function(){
-                    return requestHandler($http.get(apiUrl+"ComponentGroups"));
+                    return requestHandler("get", "ComponentGroups");
     			},
                 getComponentGroup: function(groupId){
-                    return requestHandler($http.get(apiUrl+"ComponentGroups/"+groupId));
+                    return requestHandler("get", "ComponentGroups/"+groupId);
 
                 },
                 createComponentGroup: function(name, standardLoanDuration){
-                    return requestHandler($http.put(apiUrl+"ComponentGroups", {
+                    return requestHandler("put", "ComponentGroups", {
                         componentGroupId: 0,
                         name: name,
                         standardLoanDuration: standardLoanDuration,
                         status: 1
-                    }));
+                    });
 
                 },
                 updateComponentGroup: function(groupId, data){
-                    return requestHandler($http.post(apiUrl+"ComponentGroups/"+groupId, data));
+                    return requestHandler("post", "ComponentGroups/"+groupId, data);
                 },
 
                 getStudents: function(){
-                    return requestHandler($http.get(apiUrl+"Students"));
+                    return requestHandler("get", "Students");
                 },
                 getStudent: function(studentId){
-                    return requestHandler($http.get(apiUrl+"Students/"+studentId));
+                    return requestHandler("get", "Students/"+studentId);
                 },
                 getLoans: function(){
-                    return requestHandler($http.get(apiUrl+"Loans"));
+                    return requestHandler("get", "Loans");
                 },
                 getLoan: function(loanId){
-                    return requestHandler($http.get(apiUrl+"Loans/"+loanId));
+                    return requestHandler("get", "Loans/"+loanId);
                 },
                 updateLoan: function(loanId, dueDate){
-                    return requestHandler($http.post(apiUrl+"Loans/"+loanId, {dueDate: dueDate}));
+                    return requestHandler("post", "Loans/"+loanId, {dueDate: dueDate});
                 }
     		}
     	}])
