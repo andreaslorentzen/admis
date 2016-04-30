@@ -6,6 +6,8 @@
     		
             apiService.getStudents().then(function(students){
                 $scope.students = students;
+            }, function(response){
+                $scope.showAlert("Kunne ikke hente studerende");
             });
 
 

@@ -11,7 +11,18 @@
     		function update(){
     			apiService.getComponent(barcode).then(function(component){
 					$scope.component = component;
-				});
+				}, function(response){
+                    switch (response.status){
+                        case 404:
+                        case 405:
+                            $scope.showAlert("Ugyldig komponent");
+                            $location.url("/components");
+                            break;
+                        default: 
+                            $scope.showAlert("Kunne ikke hente komponent");
+                            break;
+                    }
+                });
     		}
     		update();
 
@@ -39,12 +50,13 @@
                     if($scope.componentUpdate.status != $scope.component.status){
                         updateObj.status = $scope.componentUpdate.status;
                     }
-                    console.log(updateObj);
                     if(angular.equals({}, updateObj))
                         return;
 
                     apiService.updateComponent(barcode, updateObj).then(function(){
                         $uibModalInstance.close();
+                    }, function(response){
+                        $scope.showAlert("Kunne ikke opdatere komponent");
                     });
                 };
                 $scope.cancel = function(){

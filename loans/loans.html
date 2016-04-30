@@ -3,10 +3,13 @@
     <label class="btn btn-primary" ng-model="loanSort.active" uib-btn-checkbox>Ikke afleveret</label>
     <label class="btn btn-primary" ng-model="loanSort.inactive" uib-btn-checkbox>Afleveret</label>
 </div>
+Viser:
+<button type="button" class="btn btn-primary" ng-click="loanSort.exceeded = !loanSort.exceeded">{{loanSort.exceeded ? 'Overskredet' : 'Alle'}}</button>
 <table class="table table-hover selectable-table">
 	<thead>
 		<tr>
 			<th>Lån ID</th>
+			<th>Komponentgruppe</th>
 			<th>Stregkode</th>
 			<th>Studie nr</th>
 			<th>Udlånsdato</th>
@@ -17,8 +20,9 @@
 		</tr>
 	</thead>
 	<tbody>
-		<tr ng-repeat="loan in loans | statusSort: loanSort : true">
+		<tr ng-repeat="loan in loans | loansSort: loanSort : true">
 			<td>{{loan.loanId}}</td>
+			<td>{{loan.componentGroupName}}</td>
 			<td><a href="components/{{loan.barcode}}">{{loan.barcode}}</a></td>
 			<td><a ng-if="loan.studentId" href="students/{{loan.studentId}}">{{loan.studentId}}</a></td>
 			<td>{{loan.loanDate}}</td>
