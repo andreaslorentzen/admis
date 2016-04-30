@@ -9,6 +9,7 @@
 			$scope.selectedGroup;
 			var groupNameMap = [];
 			var componentsCount = [];
+			var availableCount = []
 
 			apiService.getComponents().then(function(components){
 				$scope.components = components;
@@ -20,6 +21,7 @@
 				for (var i = 0; i < componentGroups.length; i++) {
 					groupNameMap[componentGroups[i].componentGroupId] = componentGroups[i].name;
 					componentsCount[componentGroups[i].componentGroupId] = 0;
+					availableCount[componentGroups[i].componentGroupId] = 0;
 				}
 				$scope.componentGroups = componentGroups;
 				addComponentGroupNames();
@@ -35,9 +37,12 @@
 				$scope.components.forEach(function(component){
 					component.componentGroupName = groupNameMap[component.componentGroupId];
 					componentsCount[component.componentGroupId]++;
+					if(component.status == 1 && component.studentId == "")
+						availableCount[component.componentGroupId]++;
 				});
 				$scope.componentGroups.forEach(function(componentGroup){
 					componentGroup.componentsCount = componentsCount[componentGroup.componentGroupId];
+					componentGroup.availableCount = availableCount[componentGroup.componentGroupId];
 				});
 			}
 

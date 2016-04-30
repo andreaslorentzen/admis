@@ -9,15 +9,17 @@
 			<tr>
 				<th>Navn</th>
 				<th>Antal</th>
+				<th>Ledige</th>
 				<th>Status</th>
 				<th></th>
 			</tr>
 		</thead>
 		<tbody>
-			<tr ng-repeat="group in componentGroups | statusSort: groupSort" ng-class="{'success': group == selectedGroup}">
-				<td ng-click="selectGroup(group)">{{group.name}}</td>
+			<tr ng-repeat="group in componentGroups | statusSort: groupSort" ng-class="{'success': group == selectedGroup}" ng-click="selectGroup(group)">
+				<td>{{group.name}}</td>
 				<td>{{group.componentsCount}}</td>
-				<td ng-click="selectGroup(group)">
+				<td>{{group.availableCount}}</td>
+				<td>
 					<span ng-if="group.status == 0" class="text-warning">Deaktiveret</span>
 					<span ng-if="group.status == 1" class="text-success">Aktiv</span>
 				</td>
