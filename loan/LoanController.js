@@ -24,10 +24,8 @@
                 });
             };
 // <uib-datepicker ng-model="dt" class="well well-sm" datepicker-options="options"></uib-datepicker>
-            function ModalEditLoanController($scope, $uibModalInstance){
-                $scope.dueDate = Date.parse(
-                    $scope.loan.dueDate.substr(3,3)+$scope.loan.dueDate.substr(0,3)+$scope.loan.dueDate.substr(6,4)
-                );
+            function ModalEditLoanController($scope, $uibModalInstance, $filter){
+                $scope.dueDate = $filter("dateFromSting")($scope.loan.dueDate);
                 $scope.datePickerOptions = {
                     minDate: new Date(),
                     showWeeks: true
@@ -62,4 +60,9 @@
                   }
             };
 		})
+        .filter('dateFromSting', function() {
+            return function(dateString) {
+                return Date.parse(dateString.substr(3,3)+dateString.substr(0,3)+dateString.substr(6,4));
+            };
+        })
 })();
