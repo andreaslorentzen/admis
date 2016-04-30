@@ -15,8 +15,8 @@
                     });
                     loan.status = loan.deliveryDate == "" ? 1 : 0;
                     var dueDate = $filter('dateFromSting')(loan.dueDate);
-                    loan.daysToDelivery = (dueDate - (new Date).getTime())/oneDay;
-                    console.log(loan.daysToDelivery);
+                    loan.daysToDelivery = Math.round((dueDate - (new Date()).getTime())/oneDay);
+                                                                    // time should be 00:00:00
                 });
             }, function(response){
                 $scope.showAlert("Kunne ikke hente lån");

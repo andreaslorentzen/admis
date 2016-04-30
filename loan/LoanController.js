@@ -9,6 +9,17 @@
             function update(){
                 apiService.getLoan(loanId).then(function(loan){
                     $scope.loan = loan;
+                }, function(response){
+                    switch (response.status){
+                        case 404:
+                        case 405:
+                            $scope.showAlert("Ugyldigt lån");
+                            $location.url("/components");
+                            break;
+                        default: 
+                            $scope.showAlert("Kunne ikke hente oplysninger om lån");
+                            break;
+                    }
                 });
             }
 			update();
@@ -23,7 +34,7 @@
                     update();
                 });
             };
-// <uib-datepicker ng-model="dt" class="well well-sm" datepicker-options="options"></uib-datepicker>
+
             function ModalEditLoanController($scope, $uibModalInstance, $filter){
                 $scope.dueDate = $filter("dateFromSting")($scope.loan.dueDate);
                 $scope.datePickerOptions = {
@@ -36,7 +47,10 @@
                         return;
                     apiService.updateLoan($scope.loan.loanId, $filter('date')($scope.dueDate, "dd/MM/yyyy")).then(function(){
                         $uibModalInstance.close();
-                    })
+                        $scope.showAlert("Afleveringsdato opdateret", 'success');
+                    }, function(response){
+                        $scope.showAlert("Kunne ikke opdatere afleveringsdato");
+                    });
                 };
                 $scope.cancel = function(){
                     $uibModalInstance.dismiss();

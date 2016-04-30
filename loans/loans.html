@@ -27,7 +27,7 @@ Viser:
 			<td><a ng-if="loan.studentId" href="students/{{loan.studentId}}">{{loan.studentId}}</a></td>
 			<td>{{loan.loanDate}}</td>
 			<td>{{loan.dueDate}}</td>
-			<td colspan="2" ng-if="loan.status">{{(loan.daysToDelivery < 0 ? "Overskredet "+(loan.daysToDelivery*(-1))+" dage" : loan.daysToDelivery+"dage til aflevering")}}</td>
+			<td colspan="2" ng-if="loan.status">{{(loan.daysToDelivery < 0 ? "Overskredet "+(loan.daysToDelivery*(-1))+" dage" : loan.daysToDelivery+" dage til aflevering")}}</td>
 			<td ng-if="!loan.status">{{loan.deliveryDate}}</td>
 			<td ng-if="!loan.status">{{loan.deliveredTo}}</td>
 			<td class="show-button"><button type="button" class="btn btn-xs btn-info" ng-click="openLoan(loan)">Vis</button></td>
