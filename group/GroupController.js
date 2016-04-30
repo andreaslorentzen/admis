@@ -85,7 +85,7 @@
 			};
 
 			$scope.openComponent = function(component){
-				$location.url("components/"+component.componentId);
+				$location.url("components/"+component.barcode);
 			};
 
 		})

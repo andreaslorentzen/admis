@@ -1,33 +1,36 @@
-<h1>Komponent gruppe <button type="button" class="btn btn-xs btn-success" ng-click="editGroup(group)">Rediger</button></h1>
-<h2>{{group.name}}</h2>
-<p><strong>Standard lånetid: </strong>{{group.standardLoanDuration}} dage</p>
-<p><strong>Status: </strong>{{group.status | studentStatus}}</p>
-
-<table class="table">
-	<thead>
-		<tr>
-			<td></td>
-			<td><input type="text" name="number" ng-model="number" class="form-control"></td>
-			<td colspan="2"><button type="submit" class="btn btn-success" ng-click="createComponent()">Tilføj</button></td>
-		</tr>
-	</thead>
-	<thead>
-		<tr>
-			<th>Stregkode</th>
-			<th>Nummer</th>
-			<th>Status</th>
-			<th></th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr ng-repeat="component in group.components | filter: search as results">
-			<td>{{component.barcode}}</td>
-			<td>{{component.componentNumber}}</td>
-			<td>{{component.status | studentStatus}}</td>
-			<td width="72"><button type="button" class="btn btn-xs btn-success" ng-click="openComponent(component)">Rediger</button></td>
-		</tr>
-		<tr ng-show="results.length==0">
-			<td colspan="4" class="text-center"><em>Ingen komponenter matchede søgningen</em></td>
-		</tr>
-	</tbody>
-</table>
+<div class="col col-sm-12 col-md-6">
+	<h1>Komponent gruppe <button type="button" class="btn btn-xs btn-success" ng-click="editGroup(group)">Rediger</button></h1>
+	<h2>{{group.name}}</h2>
+	<p><strong>Standard lånetid: </strong>{{group.standardLoanDuration}} dage</p>
+	<p><strong>Status: </strong>{{group.status | studentStatus}}</p>
+</div>
+<div class="col col-sm-12 col-md-6">
+	<table class="table">
+		<thead>
+			<tr>
+				<td></td>
+				<td><input type="text" name="number" ng-model="number" class="form-control"></td>
+				<td colspan="2"><button type="submit" class="btn btn-success" ng-click="createComponent()">Tilføj</button></td>
+			</tr>
+		</thead>
+		<thead>
+			<tr>
+				<th>Stregkode</th>
+				<th>Nummer</th>
+				<th>Status</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="component in group.components | filter: search as results">
+				<td>{{component.barcode}}</td>
+				<td>{{component.componentNumber}}</td>
+				<td>{{component.status | studentStatus}}</td>
+				<td class="show-button"><button type="button" class="btn btn-xs btn-info" ng-click="openComponent(component)">Vis</button></td>
+			</tr>
+			<tr ng-show="results.length==0">
+				<td colspan="4" class="text-center"><em>Ingen komponenter matchede søgningen</em></td>
+			</tr>
+		</tbody>
+	</table>
+</div>

@@ -1,63 +1,68 @@
-<h1>Komponent grupper <button type="button" class="btn btn-xs btn-primary" ng-click="createGroup()">Tilføj</button></h1>
-<div class="btn-group">
-    <label class="btn btn-primary" ng-model="groupSort.active" uib-btn-checkbox>Aktive <span class="badge">{{numberOfActive(componentGroups)}}</span></label>
-    <label class="btn btn-primary" ng-model="groupSort.inactive" uib-btn-checkbox>Deaktiverede <span class="badge">{{numberOfInactive(componentGroups)}}</span></label>
+<div class="col col-sm-12 col-md-5">
+	<h1>Komponent grupper <button type="button" class="btn btn-xs btn-primary" ng-click="createGroup()">Tilføj</button></h1>
+	<div class="btn-group">
+	    <label class="btn btn-primary" ng-model="groupSort.active" uib-btn-checkbox>Aktive <span class="badge">{{numberOfActive(componentGroups)}}</span></label>
+	    <label class="btn btn-primary" ng-model="groupSort.inactive" uib-btn-checkbox>Deaktiverede <span class="badge">{{numberOfInactive(componentGroups)}}</span></label>
+	</div>
+	<table class="table table-hover selectable-table">
+		<thead>
+			<tr>
+				<th>Navn</th>
+				<th>Antal</th>
+				<th>Status</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="group in componentGroups | statusSort: groupSort" ng-class="{'success': group == selectedGroup}">
+				<td ng-click="selectGroup(group)">{{group.name}}</td>
+				<td>{{group.componentsCount}}</td>
+				<td ng-click="selectGroup(group)">
+					<span ng-if="group.status == 0" class="text-warning">Deaktiveret</span>
+					<span ng-if="group.status == 1" class="text-success">Aktiv</span>
+				</td>
+				<td class="show-button"><button type="button" class="btn btn-xs btn-info" ng-click="editGroup(group)">Vis</button></td>
+			</tr>
+		</tbody>
+	</table>
 </div>
-<table class="table table-hover selectable-table">
-	<thead>
-		<tr>
-			<th>Navn</th>
-			<th>Antal</th>
-			<th>Status</th>
-			<th></th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr ng-repeat="group in componentGroups | statusSort: groupSort" ng-class="{'success': group == selectedGroup}">
-			<td ng-click="selectGroup(group)">{{group.name}}</td>
-			<td>{{group.componentsCount}}</td>
-			<td ng-click="selectGroup(group)">
-				<span ng-if="group.status == 0" class="text-warning">Deaktiveret</span>
-				<span ng-if="group.status == 1" class="text-success">Aktiv</span>
-			</td>
-			<td class="show-button"><button type="button" class="btn btn-xs btn-info" ng-click="editGroup(group)">Vis</button></td>
-		</tr>
-	</tbody>
-</table>
-<h1>Komponenter</h1>
-<div>
-	<input type="text" ng-model="search" class="form-control" placeholder="Søg i komponenter">
-
+<div class="col col-sm-12 col-md-7">
+	<h1>Komponenter</h1>
+	<div>
+		<div class="btn-group">
+		    <label class="btn btn-primary" ng-model="componentSort.active" uib-btn-checkbox>Aktive <span class="badge">{{numberOfActive(components)}}</span></label>
+		    <label class="btn btn-primary" ng-model="componentSort.inactive" uib-btn-checkbox>Deaktiverede <span class="badge">{{numberOfInactive(components)}}</span></label>
+		</div>
+		<button type="button" class="btn btn-primary" ng-click="componentSort.loaned = (componentSort.loaned+1)%3">{{componentSort.loaned == 0 ? 'Alle' : (componentSort.loaned == 1 ? 'Udlånt' : 'Ikke udlånt')}}</button>
+	</div>
+	<div>
+		<input type="text" ng-model="search" class="form-control" placeholder="Søg i komponenter">
+	</div>
+	<table class="table table-hover selectable-table">
+		<thead>
+			<tr>
+				<th>Stregkode</th>
+				<th>Komponent gruppe</th>
+				<th>Nummer</th>
+				<th>Status</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="component in components | filter:{componentGroupId: selectedGroup.componentGroupId} : true | componentSort: componentSort : true | filter: search as results" ng-click="openComponent(component)">
+				<td>{{component.barcode}}</td>
+				<td>{{component.componentGroupName}}</td>
+				<td>{{component.componentNumber}}</td>
+				<td>
+					<span ng-if="!component.studentId && component.status == 0">Deaktiveret</span>
+					<span ng-if="!component.studentId && component.status == 1">-</span>
+					<a ng-if="component.studentId" href="students/{{component.studentId}}">{{component.studentId}}</a>
+				</td>
+				<td class="show-button"><button type="button" class="btn btn-xs btn-info">Vis</button></td>
+			</tr>
+			<tr ng-show="results.length==0">
+				<td colspan="4" class="text-center"><em>Ingen komponenter matchede søgningen</em></td>
+			</tr>
+		</tbody>
+	</table>
 </div>
-<div class="btn-group">
-    <label class="btn btn-primary" ng-model="componentSort.active" uib-btn-checkbox>Aktive <span class="badge">{{numberOfActive(components)}}</span></label>
-    <label class="btn btn-primary" ng-model="componentSort.inactive" uib-btn-checkbox>Deaktiverede <span class="badge">{{numberOfInactive(components)}}</span></label>
-</div>
-<button type="button" class="btn btn-primary" ng-click="componentSort.loaned = (componentSort.loaned+1)%3">{{componentSort.loaned == 0 ? 'Alle' : (componentSort.loaned == 1 ? 'Udlånt' : 'Ikke udlånt')}}</button>
-<table class="table table-hover selectable-table">
-	<thead>
-		<tr>
-			<th>Stregkode</th>
-			<th>Komponent gruppe</th>
-			<th>Nummer</th>
-			<th>Status</th>
-			<th></th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr ng-repeat="component in components | filter:{componentGroupId: selectedGroup.componentGroupId} : true | componentSort: componentSort : true | filter: search as results" ng-click="openComponent(component)">
-			<td>{{component.barcode}}</td>
-			<td>{{component.componentGroupName}}</td>
-			<td>{{component.componentNumber}}</td>
-			<td>
-				<span ng-if="!component.studentId && component.status == 0">Deaktiveret</span>
-				<span ng-if="!component.studentId && component.status == 1">-</span>
-				<a ng-if="component.studentId" href="students/{{component.studentId}}">{{component.studentId}}</a>
-			</td>
-			<td class="show-button"><button type="button" class="btn btn-xs btn-info">Vis</button></td>
-		</tr>
-		<tr ng-show="results.length==0">
-			<td colspan="4" class="text-center"><em>Ingen komponenter matchede søgningen</em></td>
-		</tr>
-	</tbody>
-</table>
