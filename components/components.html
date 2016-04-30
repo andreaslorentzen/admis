@@ -1,5 +1,5 @@
 <div class="col col-sm-12 col-md-5">
-	<h1>Komponent grupper <button type="button" class="btn btn-xs btn-primary" ng-click="createGroup()">Tilføj</button></h1>
+	<h1>Komponentgrupper <button type="button" class="btn btn-xs btn-primary" ng-click="createGroup()">Tilføj</button></h1>
 	<div class="btn-group">
 	    <label class="btn btn-primary" ng-model="groupSort.active" uib-btn-checkbox>Aktive <span class="badge">{{numberOfActive(componentGroups)}}</span></label>
 	    <label class="btn btn-primary" ng-model="groupSort.inactive" uib-btn-checkbox>Deaktiverede <span class="badge">{{numberOfInactive(componentGroups)}}</span></label>
@@ -15,7 +15,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr ng-repeat="group in componentGroups | statusSort: groupSort" ng-class="{'success': group == selectedGroup}" ng-click="selectGroup(group)">
+			<tr ng-repeat="group in componentGroups | statusSort: groupSort as results" ng-class="{'success': group == selectedGroup}" ng-click="selectGroup(group)">
 				<td>{{group.name}}</td>
 				<td>{{group.componentsCount}}</td>
 				<td>{{group.availableCount}}</td>
@@ -24,6 +24,9 @@
 					<span ng-if="group.status == 1" class="text-success">Aktiv</span>
 				</td>
 				<td class="show-button"><button type="button" class="btn btn-xs btn-info" ng-click="editGroup(group)">Vis</button></td>
+			</tr>
+			<tr ng-show="results.length==0">
+				<td colspan="5" class="text-center"><em>Ingen komponentgrupper matchede filtreringen</em></td>
 			</tr>
 		</tbody>
 	</table>
@@ -44,7 +47,7 @@
 		<thead>
 			<tr>
 				<th>Stregkode</th>
-				<th>Komponent gruppe</th>
+				<th>Komponentgruppe</th>
 				<th>Nummer</th>
 				<th>Status</th>
 				<th></th>
@@ -63,7 +66,7 @@
 				<td class="show-button"><button type="button" class="btn btn-xs btn-info">Vis</button></td>
 			</tr>
 			<tr ng-show="results.length==0">
-				<td colspan="4" class="text-center"><em>Ingen komponenter matchede søgningen</em></td>
+				<td colspan="5" class="text-center"><em>Ingen komponenter matchede søgningen</em></td>
 			</tr>
 		</tbody>
 	</table>

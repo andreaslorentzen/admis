@@ -49,7 +49,7 @@
                 var filtered = [];
                 angular.forEach(items, function(item) {
                     if(sortObj.exceeded){
-                        if(item.status != 1 || item.daysToDelivery > 0)
+                        if(item.status != 1 || item.daysToDelivery >= 0)
                             return;
                     }
                     if( (sortObj.active && item.status) ||
