@@ -8,9 +8,9 @@ Viser:
 <table class="table table-hover selectable-table">
 	<thead>
 		<tr>
-			<th>Lån ID</th>
-			<th>Komponentgruppe</th>
 			<th>Stregkode</th>
+			<th>Komponentgruppe</th>
+			<th>Nr.</th>
 			<th>Studie nr</th>
 			<th>Udlånsdato</th>
 			<th>Afleveringsdato</th>
@@ -20,17 +20,19 @@ Viser:
 		</tr>
 	</thead>
 	<tbody>
-		<tr ng-repeat="loan in loans | loansSort: loanSort : true">
-			<td>{{loan.loanId}}</td>
-			<td>{{loan.componentGroupName}}</td>
+		<tr ng-repeat="loan in loans | loansSort: loanSort : true" ng-class="{'danger': loan.status && loan.daysToDelivery<0, 'warning': loan.status&&loan.daysToDelivery==0}" ng-click="openLoan(loan)">
 			<td><a href="components/{{loan.barcode}}">{{loan.barcode}}</a></td>
+			<td>{{loan.componentGroupName}}</td>
+			<td>{{loan.componentNumber}}</td>
 			<td><a ng-if="loan.studentId" href="students/{{loan.studentId}}">{{loan.studentId}}</a></td>
 			<td>{{loan.loanDate}}</td>
 			<td>{{loan.dueDate}}</td>
-			<td colspan="2" ng-if="loan.status">{{(loan.daysToDelivery < 0 ? "Overskredet "+(loan.daysToDelivery*(-1))+" dage" : loan.daysToDelivery+" dage til aflevering")}}</td>
+			<td colspan="2" ng-if="loan.status&&loan.daysToDelivery==0">Skal afleveres i dag</td>
+			<td colspan="2" ng-if="loan.status&&loan.daysToDelivery<0">Overskredet {{loan.daysToDelivery*(-1)}} dage</td>
+			<td colspan="2" ng-if="loan.status&&loan.daysToDelivery>0">{{loan.daysToDelivery}} dage til aflevering</td>
 			<td ng-if="!loan.status">{{loan.deliveryDate}}</td>
 			<td ng-if="!loan.status">{{loan.deliveredTo}}</td>
-			<td class="show-button"><button type="button" class="btn btn-xs btn-info" ng-click="openLoan(loan)">Vis</button></td>
+			<td class="show-button"><button type="button" class="btn btn-xs btn-info">Vis</button></td>
 		</tr>
 	</tbody>
 </table>

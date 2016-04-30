@@ -9,13 +9,17 @@
                 $scope.loans = loans;
 
                 var oneDay = 1000*3600*24;
+                var today = new Date();
+                today = new Date(today.getFullYear(),today.getMonth(),today.getDate());
+
                 $scope.loans.forEach(function(loan){
                     apiService.getComponent(loan.barcode).then(function(response){
                         loan.componentGroupName = response.componentGroup.name;
+                        loan.componentNumber = response.componentNumber;
                     });
                     loan.status = loan.deliveryDate == "" ? 1 : 0;
                     var dueDate = $filter('dateFromSting')(loan.dueDate);
-                    loan.daysToDelivery = Math.round((dueDate - (new Date()).getTime())/oneDay);
+                    loan.daysToDelivery = Math.round((dueDate - today.getTime())/oneDay);
                                                                     // time should be 00:00:00
                 });
             }, function(response){
