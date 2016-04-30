@@ -1,7 +1,5 @@
-<IfModule mod_rewrite.c>
 RewriteEngine On
 
-RewriteCond %{REQUEST_URI} !.*\.(map|png|jpg|gif|svg|js|html|json|css)$
+RewriteCond %{REQUEST_URI} !.*\.(map|png|svg|js|html|css)$
 RewriteCond %{REQUEST_URI} !robots\.txt$
 RewriteRule .* /admis/index.html [L]
-</IfModule>
