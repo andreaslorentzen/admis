@@ -13,6 +13,8 @@
 			apiService.getComponents().then(function(components){
 				$scope.components = components;
 				addComponentGroupNames();
+			}, function(response){
+				$scope.showAlert("Kunne ikke hente komponenter");
 			});
 			apiService.getComponentGroups().then(function(componentGroups){
 				for (var i = 0; i < componentGroups.length; i++) {
@@ -21,6 +23,8 @@
 				}
 				$scope.componentGroups = componentGroups;
 				addComponentGroupNames();
+			}, function(response){
+				$scope.showAlert("Kunne ikke hente komponentgrupper");
 			});
 
 
@@ -95,13 +99,19 @@
 
 			function ModalCreateGroupController($scope, $uibModalInstance){
 				$scope.name = "";
+				$scope.standardLoanDuration = "";
 
 				$scope.create = function(form){
 					if($scope.name == "")
 						return;
+					if($scope.standardLoanDuration != ""+parseInt($scope.standardLoanDuration))
+						return;
 
-					apiService.createComponentGroup($scope.name).then(function(data){
+					apiService.createComponentGroup($scope.name, $scope.standardLoanDuration).then(function(data){
+						$scope.showAlert("Komponentgruppe tilføjet!", "success");
 						$uibModalInstance.close(data.componentGroupId);
+					}, function(response){
+						$scope.showAlert("Kunne ikke tilføje komponentgruppe");
 					});
 				};
 				$scope.cancel = function(){
@@ -113,10 +123,10 @@
 				$uibModal.open({
 					templateUrl: 'components/modal-create-group.html',
 					size: 'lg',
-					controller: ModalCreateGroupController
+					controller: ModalCreateGroupController,
+					scope: $scope
 				}).result.then(function(groupId){
 					$location.url('components/group/'+groupId);
-
 				});
 			};
 

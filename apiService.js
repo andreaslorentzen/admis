@@ -85,19 +85,16 @@
                     return requestHandler($http.get(apiUrl+"ComponentGroups/"+groupId));
 
                 },
-                createComponentGroup: function(name){
+                createComponentGroup: function(name, standardLoanDuration){
                     return requestHandler($http.put(apiUrl+"ComponentGroups", {
                         componentGroupId: 0,
                         name: name,
-                        standardLoanDuration: 100,
+                        standardLoanDuration: standardLoanDuration,
                         status: 1
                     }));
 
                 },
                 updateComponentGroup: function(groupId, data){
-                    var def = $q.defer();
-                    def.reject();
-                    return def.promise;
                     return requestHandler($http.post(apiUrl+"ComponentGroups/"+groupId, data));
                 },
 
