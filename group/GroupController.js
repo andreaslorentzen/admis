@@ -4,10 +4,6 @@
     angular.module('admisApp')
     	.controller('GroupController', function($scope, apiService, $routeParams, $uibModal, $location){
     		
-    		if(!apiService.isLoggedIn()){
-    			$location.url('login');
-    		}
-
     		var groupId = $routeParams.groupId;
 
     		$scope.group;
@@ -43,6 +39,9 @@
 
                     apiService.updateComponentGroup(groupId, updateObj).then(function(){
                         $uibModalInstance.close();
+                        $scope.showAlert("Komponentgruppe gemt", "success");
+                    }, function(){
+                        $scope.showAlert("Kunne ikke gemme Komponentgruppe");
                     });
                 };
                 $scope.cancel = function(){
@@ -68,7 +67,10 @@
     			apiService.createComponent(groupId,$scope.number).then(function(){
     				$scope.number = "";
     				update();
-    			});
+                        $scope.showAlert("Komponent tilføjet", "success");
+                    }, function(){
+                        $scope.showAlert("Kunne ikke oprette komponent");
+                    });
     		};
 
             $scope.openComponent = function(component){

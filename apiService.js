@@ -2,12 +2,26 @@
     'use strict';
 
     angular.module('admisApp')
-    	.service('apiService', ['$http','$q','appService', function($http,$q,$scope){
+    	.service('apiService', ['$http','$q','$location','$rootScope', function($http,$q,$location,$rootScope){
             var apiUrl = "http://54.93.171.44:8080/KomponentMis/api/";
-            var token;
+            var scope = $rootScope.$new(true);
+
+            scope.token;
             if(typeof(Storage) !== "undefined") {
-                token = window.localStorage.getItem("token");
+                scope.token = window.localStorage.getItem("token");
             }
+            scope.$watch("token", function(token, oldToken){
+                if(token){
+                    if(typeof(Storage) !== "undefined")
+                        window.localStorage.setItem("token",token);
+                }
+                else{
+                    if(typeof(Storage) !== "undefined")
+                        window.localStorage.removeItem("token");
+                    if($location.url() != "/login/" || $location.url() != "/login")
+                        $location.url("login");
+                }
+            });
 
             function requestHandler(httpPromise, successFunction){
                 var deferred = $q.defer();
@@ -22,7 +36,6 @@
                 }, function(response){
                     if(response.status == 401){
                         $location.url("/login");
-                        $scope.showAlert("Du skal være logget ind");
                     }
                     deferred.reject(response);
                 });
@@ -32,18 +45,26 @@
 
     		return {
     			isLoggedIn: function(){
-    				return true;
+    				return scope.token != undefined;
+                    //TODO validate token with REST
     			},
                 login: function(username, password){
+                    var deferred = $q.defer();
+
+                    scope.token = "sdfafsfuafjlkjndsfkdsa";
+                    
+                    deferred.resolve();
+
+                    return deferred.promise;
                     return requestHandler($http.post(apiUrl+"login", {username: username, password: password}), function(response){
-                        token = response.data.token;
-                        if(typeof(Storage) !== "undefined") {
-                            window.localStorage.setItem("token",token);
-                        }
+                        scope.token = response.data.token;
                         return {};
                     });
                 },
-
+                logout: function(){
+                    scope.token = undefined;
+                //    $location.url('login');
+                },
     			getComponents: function(){
                     return requestHandler($http.get(apiUrl+"Components"));
     			},
@@ -74,6 +95,9 @@
 
                 },
                 updateComponentGroup: function(groupId, data){
+                    var def = $q.defer();
+                    def.reject();
+                    return def.promise;
                     return requestHandler($http.post(apiUrl+"ComponentGroups/"+groupId, data));
                 },
 

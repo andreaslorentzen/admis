@@ -4,15 +4,14 @@
 	angular.module('admisApp')
 		.controller('LoanController', function($scope, apiService, $uibModal, $location, $routeParams, $filter){
 			
-			if(!apiService.isLoggedIn()){
-				$location.url('login');
-			}
-
 			var loanId = $routeParams.loanId;
 			
-			apiService.getLoan(loanId).then(function(loan){
-				$scope.loan = loan;
-			});
+            function update(){
+                apiService.getLoan(loanId).then(function(loan){
+                    $scope.loan = loan;
+                });
+            }
+			update();
 
 			$scope.editDueDate = function(loan){
                 $uibModal.open({
@@ -21,7 +20,7 @@
                     controller: ModalEditLoanController,
                     scope: $scope
                 }).result.then(function(loan){
-
+                    update();
                 });
             };
 // <uib-datepicker ng-model="dt" class="well well-sm" datepicker-options="options"></uib-datepicker>
@@ -37,7 +36,7 @@
                 $scope.edit = function(){
                     if($scope.dueDate == "")
                         return;
-                    apiService.updateLoan($scope.loan.loanId, $filter('date')($scope.dueDate, "dd-MM-yyyy", "UTC")).then(function(){
+                    apiService.updateLoan($scope.loan.loanId, $filter('date')($scope.dueDate, "dd/MM/yyyy")).then(function(){
                         $uibModalInstance.close();
                     })
                 };

@@ -3,10 +3,6 @@
 
     angular.module('admisApp')
     	.controller('LoansController', function($scope, apiService, $uibModal, $location){
-    		
-    		if(!apiService.isLoggedIn()){
-    			$location.url('login');
-    		}
 
             var groupNameMap = [];
             apiService.getLoans().then(function(loans){

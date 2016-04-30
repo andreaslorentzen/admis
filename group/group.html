@@ -6,6 +6,13 @@
 <table class="table">
 	<thead>
 		<tr>
+			<td></td>
+			<td><input type="text" name="number" ng-model="number" class="form-control"></td>
+			<td colspan="2"><button type="submit" class="btn btn-success" ng-click="createComponent()">Tilføj</button></td>
+		</tr>
+	</thead>
+	<thead>
+		<tr>
 			<th>Stregkode</th>
 			<th>Nummer</th>
 			<th>Status</th>
@@ -23,11 +30,4 @@
 			<td colspan="4" class="text-center"><em>Ingen komponenter matchede søgningen</em></td>
 		</tr>
 	</tbody>
-	<tfoot>
-		<tr>
-			<td></td>
-			<td><input type="text" name="number" ng-model="number" class="form-control"></td>
-			<td colspan="2"><button type="submit" class="btn btn-success" ng-click="createComponent()">Tilføj</button></td>
-		</tr>
-	</tfoot>
 </table>
