@@ -9,8 +9,30 @@
             }, function(response){
                 $scope.showAlert("Kunne ikke hente studerende");
             });
+            $scope.openStudent = function(student){
+                $location.url("students/"+student.studentId);
+            };
 
 
+            $scope.numberOfActive = function(items){
+                var count = 0;
+                angular.forEach(items, function(item) {
+                  if(item.status == 1)
+                    count++;
+                });
+                return count;
+            };
+            $scope.numberOfInactive = function(items){
+                var count = 0;
+                angular.forEach(items, function(item) {
+                  if(item.status != 1)
+                    count++;
+                });
+                return count;
+            };
+
+
+            // used for filtering
             $scope.sort = {
                 active: true,
                 inactive: false
@@ -25,29 +47,6 @@
                 sort.active = true;
             });
 
-
-            $scope.numberOfActive = function(items){
-                var count = 0;
-                angular.forEach(items, function(item) {
-                  if(item.status == 1)
-                    count++;
-                });
-                return count;
-            };
-
-            $scope.numberOfInactive = function(items){
-                var count = 0;
-                angular.forEach(items, function(item) {
-                  if(item.status != 1)
-                    count++;
-                });
-                return count;
-            };
-
-
-            $scope.openStudent = function(student){
-                $location.url("students/"+student.studentId);
-            };
 
     	})
         .filter('studentStatus', function() {

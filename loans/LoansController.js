@@ -25,7 +25,11 @@
             }, function(response){
                 $scope.showAlert("Kunne ikke hente lån");
             });
+            $scope.openLoan = function(loan){
+                $location.url("loans/"+loan.loanId);
+            };
 
+            // filter functions
             $scope.loanSort = {
                 active: true,
                 inactive: false,
@@ -39,10 +43,6 @@
                 sort.active = true;
             });
 
-
-            $scope.openLoan = function(loan){
-                $location.url("loans/"+loan.loanId);
-            };
     	})
         .filter('loansSort', function() {
             return function(items, sortObj) {

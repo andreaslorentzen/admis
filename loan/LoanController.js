@@ -24,6 +24,7 @@
             }
 			update();
 
+            // Open edit dialog for updateing the due date
 			$scope.editDueDate = function(loan){
                 $uibModal.open({
                     templateUrl: 'loan/modal-edit-duedate.html',
@@ -35,8 +36,10 @@
                 });
             };
 
+            // Dialog controller
             function ModalEditLoanController($scope, $uibModalInstance, $filter){
                 $scope.dueDate = $filter("dateFromSting")($scope.loan.dueDate);
+                // config object for bootstrap datepicker
                 $scope.datePickerOptions = {
                     minDate: new Date(),
                     showWeeks: true
@@ -55,26 +58,10 @@
                 $scope.cancel = function(){
                     $uibModalInstance.dismiss();
                 };
-                function getDayClass(data) {
-                    var date = data.date,
-                      mode = data.mode;
-                    if (mode === 'day') {
-                      var dayToCheck = new Date(date).setHours(0,0,0,0);
-
-                      for (var i = 0; i < $scope.events.length; i++) {
-                        var currentDay = new Date($scope.events[i].date).setHours(0,0,0,0);
-
-                        if (dayToCheck === currentDay) {
-                          return $scope.events[i].status;
-                        }
-                      }
-                    }
-
-                    return '';
-                  }
             };
 		})
         .filter('dateFromSting', function() {
+            // filter for converting the date format from the server to a Date object
             return function(dateString) {
                 return Date.parse(dateString.substr(3,3)+dateString.substr(0,3)+dateString.substr(6,4));
             };
