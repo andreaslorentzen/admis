@@ -1,6 +1,7 @@
 (function () {
 	'use strict';
 
+	// module initializing
 	angular.module('admisApp',['ui.bootstrap', 'ngRoute'])
 		.config(function($locationProvider, $routeProvider){
 			$locationProvider
@@ -8,11 +9,7 @@
 				.hashPrefix('!');
 
 			$routeProvider
-			/*	.when('/', {
-					templateUrl: 'front/front.html',
-					controller: 'FrontController'
-				})
-			*/	.when('/login', {
+				.when('/login', {
 					templateUrl: 'login/login.html',
 					controller: 'LoginController'
 				})

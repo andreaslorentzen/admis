@@ -3,6 +3,7 @@
 
 	angular.module('admisApp')
 		.controller('AppController', function($scope, $location, apiService){
+			// Listen url changes, and return to login if not logged in
 			$scope.$on('$locationChangeStart', function(event, next, current) {
 				if(apiService.isLoggedIn()){
 					if($location.url() == "/login" || $location.url() == "/login/"){

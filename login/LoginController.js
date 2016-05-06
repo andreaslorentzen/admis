@@ -14,6 +14,7 @@
 				}, function(response){
 					switch(response.status){
 						case 400:
+						case 401:
 							$scope.showAlert("Brugernavn eller adgangskode er forkert");
 							break;
 						case 404:

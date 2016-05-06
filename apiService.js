@@ -1,6 +1,9 @@
 (function () {;
     'use strict'
 
+    /*
+     *  This angular service handles calls to the REST api.
+     */
     angular.module('admisApp')
     	.service('apiService', ['$http','$q','$location','$rootScope', function($http,$q,$location,$rootScope){
             var apiUrl = "http://54.93.171.44:8080/KomponentMis/api/";
@@ -54,7 +57,7 @@
                         deferred.reject(response);
                     }
                 }, function(response){
-                    if(response.status == 401){
+                    if(response.status == 401 && uri != "Login"){
                         scope.token = undefined;
                         $location.url("/login");
                     }
@@ -67,7 +70,6 @@
     		return {
     			isLoggedIn: function(){
     				return scope.token != undefined;
-                    //TODO validate token with REST
     			},
                 login: function(username, password){
                     return requestHandler("post", "Login", {username: username, password: password}, function(response){
@@ -78,7 +80,7 @@
                 },
                 logout: function(){
                     scope.token = undefined;
-                //    $location.url('login');
+                    $location.url('login');
                 },
     			getComponents: function(){
                     return requestHandler("get", "Components");
