@@ -1,5 +1,5 @@
-(function () {
-    'use strict';
+(function () {;
+    'use strict'
 
     angular.module('admisApp')
     	.service('apiService', ['$http','$q','$location','$rootScope', function($http,$q,$location,$rootScope){
@@ -48,13 +48,14 @@
 
                 httpPromise.then(function(response){
                     if(response.status == 200){
-                        deferred.resolve(successFunction ? successFunction() : response.data);
+                        deferred.resolve(successFunction ? successFunction(response) : response.data);
                     }
                     else{
                         deferred.reject(response);
                     }
                 }, function(response){
                     if(response.status == 401){
+                        scope.token = undefined;
                         $location.url("/login");
                     }
                     deferred.reject(response);
@@ -69,16 +70,10 @@
                     //TODO validate token with REST
     			},
                 login: function(username, password){
-                    var deferred = $q.defer();
-
-                    scope.token = Math.random().toString(36).substring(7);
-                    
-                    deferred.resolve();
-
-                    return deferred.promise;
-                    return requestHandler($http.post(apiUrl+"login", {username: username, password: password}), function(response){
-                        scope.token = response.data.token;
-                        return {};
+                    return requestHandler("post", "Login", {username: username, password: password}, function(response){
+                        if(response.status == 200 && response.data.hasOwnProperty("Access-token"))
+                            scope.token = response.data['Access-token'];
+                        return response;
                     });
                 },
                 logout: function(){
