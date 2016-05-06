@@ -13,7 +13,7 @@
 					$scope.showAlert("Du er nu logget ind", true);
 				}, function(response){
 					switch(response.status){
-						case 401:
+						case 400:
 							$scope.showAlert("Brugernavn eller adgangskode er forkert");
 							break;
 						case 404:
