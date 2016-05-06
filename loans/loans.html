@@ -1,34 +1,49 @@
-<h1>Loans</h1>
+<h1>Alle Lån</h1>
+<div class="btn-group">
+    <label class="btn btn-primary" ng-model="loanSort.active" uib-btn-checkbox>Ikke afleveret</label>
+    <label class="btn btn-primary" ng-model="loanSort.inactive" uib-btn-checkbox>Afleveret</label>
+</div>
+Viser:
+<button type="button" class="btn btn-primary" ng-click="loanSort.exceeded = !loanSort.exceeded">{{loanSort.exceeded ? 'Overskredet' : 'Alle'}}</button>
 <table class="table table-hover selectable-table">
 	<thead>
 		<tr>
-			<th>Nummer</th>
-			<th>Komponent nr</th>
+			<th>Stregkode</th>
+			<th>Komponentgruppe</th>
+			<th>Nr.</th>
 			<th>Studie nr</th>
 			<th>Udlånsdato</th>
 			<th>Afleveringsdato</th>
 			<th>Leveringsdato</th>
-			<th>Leveret dato</th>
+			<th>Leveret til</th>
+			<th></th>
 		</tr>
 	</thead>
 	<tbody>
-		<tr ng-repeat="loan in loans">
-			<td>{{loan.loanId}}</td>
-			<td>{{loan.componentId}}</td>
-			<td>{{loan.studentId}}</td>
+		<tr ng-repeat="loan in loans | loansSort: loanSort as results" ng-class="{'danger': loan.status && loan.daysToDelivery<0, 'warning': loan.status&&loan.daysToDelivery==0, 'success': !loan.status}" ng-click="openLoan(loan)">
+			<td><a href="components/{{loan.barcode}}">{{loan.barcode}}</a></td>
+			<td>{{loan.componentGroupName}}</td>
+			<td>{{loan.componentNumber}}</td>
+			<td><a ng-if="loan.studentId" href="students/{{loan.studentId}}">{{loan.studentId}}</a></td>
 			<td>{{loan.loanDate}}</td>
 			<td>{{loan.dueDate}}</td>
-			<td>{{loan.deliveryDate}}</td>
-			<td>{{loan.deliveredTo}}</td>
-			<td width="72"><button type="button" class="btn btn-xs btn-primary" ng-click="openStudent(loan)">Vis</button></td>
+			<td colspan="2" ng-if="loan.status&&loan.daysToDelivery==0">Skal afleveres i dag</td>
+			<td colspan="2" ng-if="loan.status&&loan.daysToDelivery<0">Overskredet {{loan.daysToDelivery*(-1)}} dage</td>
+			<td colspan="2" ng-if="loan.status&&loan.daysToDelivery>0">{{loan.daysToDelivery}} dage til aflevering</td>
+			<td ng-if="!loan.status">{{loan.deliveryDate}}</td>
+			<td ng-if="!loan.status">{{loan.deliveredTo}}</td>
+			<td class="show-button"><button type="button" class="btn btn-xs btn-info">Vis</button></td>
 		</tr>
+		<tr ng-show="results.length==0">
+				<td colspan="9" class="text-center"><em>Ingen lån matchede filtreringen</em></td>
+			</tr>
 	</tbody>
 </table>
 
 
 <!--
                     loanId: "0",
-                    componentId: "0"
+                    barcode: "0"
                     studentId: "s144886"
                     loanDate: "12"
                     dueDate: "12"

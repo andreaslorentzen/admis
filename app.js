@@ -1,18 +1,15 @@
 (function () {
-    'use strict';
+	'use strict';
 
-    angular.module('mainApp',['ui.bootstrap', 'ngRoute'])
-    	.config(function($locationProvider, $routeProvider){
-    		$locationProvider
+	// module initializing
+	angular.module('admisApp',['ui.bootstrap', 'ngRoute'])
+		.config(function($locationProvider, $routeProvider){
+			$locationProvider
 				.html5Mode(true)
 				.hashPrefix('!');
 
-    		$routeProvider
-			/*	.when('/', {
-					templateUrl: 'front/front.html',
-					controller: 'FrontController'
-				})
-			*/	.when('/login', {
+			$routeProvider
+				.when('/login', {
 					templateUrl: 'login/login.html',
 					controller: 'LoginController'
 				})
@@ -24,12 +21,17 @@
 					templateUrl: 'group/group.html',
 					controller: 'GroupController'
 				})
-				.when('/components/:componentId', {
+				.when('/components/:barcode', {
 					templateUrl: 'component/component.html',
+					controller: 'ComponentController'
 				})
 				.when('/loans', {
 					templateUrl: 'loans/loans.html',
 					controller: 'LoansController'
+				})
+				.when('/loans/:loanId', {
+					templateUrl: 'loan/loan.html',
+					controller: 'LoanController'
 				})
 				.when('/students', {
 					templateUrl: 'students/students.html',
@@ -42,11 +44,5 @@
 				.otherwise({
 					redirectTo: '/components'
 				});
-    	})
-    	.controller('AppController', function($scope, $location){
-    		$scope.currentUri = function(){
-    			return $location.url();
-    		};
-    	})
-
+		})
 })();

@@ -1,216 +1,139 @@
-(function () {
-    'use strict';
+(function () {;
+    'use strict'
 
-    angular.module('mainApp')
-    	.service('apiService', ['$http','$q', function($http,$q){
-            var groups = [
-                {
-                    componentGroupId: 1,
-                    name: "RFID Reader",
-                    status: 0,
-                    components: [
-                        {
-                            componentId: 1,
-                            barcode: 2321232,
-                            group: "RFID Reader",
-                            number: "001",
-                            status: 0
-                        },
-                        {
-                            componentId: 2,
-                            barcode: 2321231,
-                            group: "RFID Reader",
-                            number: "002",
-                            status: 1,
-                            studentId: "s144886"
-                        },
-                        {
-                            componentId: 3,
-                            barcode: 2321233,
-                            group: "RFID Reader",
-                            number: "003",
-                            status: 1
-                        },
-                        {
-                            componentId: 4,
-                            barcode: 2328232,
-                            group: "RFID Reader",
-                            number: "004",
-                            status: 0
-                        },
-                        {
-                            componentId: 5,
-                            barcode: 2561232,
-                            group: "RFID Reader",
-                            number: "005",
-                            status: 0
-                        },
-                        {
-                            componentId: 6,
-                            barcode: 2323732,
-                            group: "RFID Reader",
-                            number: "006",
-                            status: 0
-                        },
-                        {
-                            componentId: 7,
-                            barcode: 2329632,
-                            group: "RFID Reader",
-                            number: "007",
-                            status: 0
-                        },
-                        {
-                            componentId: 8,
-                            barcode: 2303432,
-                            group: "RFID Reader",
-                            number: "008",
-                            status: 0
-                        }
-                    ]
-                },
-                {
-                    componentGroupId: 2,
-                    status: 1,
-                    name: "VGA HDMI Adapter",
-                    components: []
-                },
-                {
-                    componentGroupId: 3,
-                    name: "Zypo board",
-                    status: 1,
-                    components: []
+    /*
+     *  This angular service handles calls to the REST api.
+     */
+    angular.module('admisApp')
+    	.service('apiService', ['$http','$q','$location','$rootScope', function($http,$q,$location,$rootScope){
+            var apiUrl = "http://54.93.171.44:8080/KomponentMis/api/";
+            var scope = $rootScope.$new(true);
+
+            scope.token;
+            if(typeof(Storage) !== "undefined") {
+                scope.token = window.localStorage.getItem("token");
+            }
+            scope.$watch("token", function(token, oldToken){
+                if(token){
+                    if(typeof(Storage) !== "undefined")
+                        window.localStorage.setItem("token",token);
                 }
-            ];
-            var students = [
-                {
-                    studentId: "s144886",
-                    name: "Andreas",
-                    status: 1
-                },
-                {
-                    studentId: "s144880",
-                    name: "Thomas"
+                else{
+                    if(typeof(Storage) !== "undefined")
+                        window.localStorage.removeItem("token");
+                    if($location.url() != "/login/" || $location.url() != "/login")
+                        $location.url("login");
                 }
-            ];
-            var loans = [
-                {
-                    loanId: "0",
-                    componentId: "0",
-                    studentId: "s144886",
-                    loanDate: "12",
-                    dueDate: "12",
-                    deliveryDate: "12",
-                    deliveredTo: "12",
-                },
-                {
-                    loanId: "1",
-                    componentId: "1",
-                    studentId: "s144880",
-                    loanDate: "13",
-                    dueDate: "13",
-                    deliveryDate: "13",
-                    deliveredTo: "13",
+            });
+
+            function requestHandler(method, uri, requestData, successFunction){
+                var config = {
+                    headers: {
+                        "Access-token": scope.token
+                    }
                 }
-            ];
+                var httpPromise;
+                switch(method.toLowerCase()){
+                    case "get":
+                        httpPromise = $http.get(apiUrl+uri,config);
+                        break;
+                    case "put":
+                        httpPromise = $http.put(apiUrl+uri, requestData,config);
+                        break;
+                    case "post":
+                        httpPromise = $http.post(apiUrl+uri, requestData,config);
+                        break;
+                    default:
+                        return false;
+                }
+
+                var deferred = $q.defer();
+
+                httpPromise.then(function(response){
+                    if(response.status == 200){
+                        deferred.resolve(successFunction ? successFunction(response) : response.data);
+                    }
+                    else{
+                        deferred.reject(response);
+                    }
+                }, function(response){
+                    if(response.status == 401 && uri != "Login"){
+                        scope.token = undefined;
+                        $location.url("/login");
+                    }
+                    deferred.reject(response);
+                });
+
+                return deferred.promise;
+            };
+
     		return {
     			isLoggedIn: function(){
-    				return true;
+    				return scope.token != undefined;
     			},
-    			getComponents: function(){
-    				var deferred = $q.defer();
-
-                    var components2 = [];
-
-                    for (var g = 0; g < groups.length; g++) {
-                        angular.extend(components2, groups[g].components);
-                    }
-
-    				deferred.resolve(components2);
-
-					return deferred.promise;
-
-    			},
-                createComponent: function(groupId, number){
-                    var deferred = $q.defer();
-
-                    groups[groupId-1].components.push({
-                        barcode: parseInt(Math.random()*100000000),
-                        number: number,
-                        status: 0
+                login: function(username, password){
+                    return requestHandler("post", "Login", {username: username, password: password}, function(response){
+                        if(response.status == 200 && response.data.hasOwnProperty("Access-token"))
+                            scope.token = response.data['Access-token'];
+                        return response;
                     });
-
-                    deferred.resolve();
-
-                    return deferred.promise;
-
                 },
+                logout: function(){
+                    scope.token = undefined;
+                    $location.url('login');
+                },
+    			getComponents: function(){
+                    return requestHandler("get", "Components");
+    			},
+                getComponent: function(barcode){
+                    return requestHandler("get", "Components/"+barcode);
+                },
+                createComponent: function(groupId, number){
+                    return requestHandler("put", "Components/", {
+                        barcode: 0,
+                        status: 1,
+                        componentGroupId: groupId,
+                        componentNumber: number
+                    });
+                },
+                updateComponent: function(barcode, data){
+                    return requestHandler("post", "Components/"+barcode, data);
+                },
+
     			getComponentGroups: function(){
-    				var deferred = $q.defer();
-
-    				deferred.resolve(
-    					angular.copy(groups)
-    				);
-
-					return deferred.promise;
-
+                    return requestHandler("get", "ComponentGroups");
     			},
                 getComponentGroup: function(groupId){
-                    var deferred = $q.defer();
-
-                    var group = angular.copy(groups[groupId-1]);
-                    deferred.resolve(
-                        group
-                    );
-
-                    return deferred.promise;
+                    return requestHandler("get", "ComponentGroups/"+groupId);
 
                 },
-                createComponentGroup: function(name){
-                    var deferred = $q.defer();
-
-                    groups.push({
+                createComponentGroup: function(name, standardLoanDuration){
+                    return requestHandler("put", "ComponentGroups", {
+                        componentGroupId: 0,
                         name: name,
-                        status: 1,
-                        components: []
+                        standardLoanDuration: standardLoanDuration,
+                        status: 1
                     });
-                    deferred.resolve(groups.length);
 
-                    return deferred.promise;
                 },
+                updateComponentGroup: function(groupId, data){
+                    return requestHandler("post", "ComponentGroups/"+groupId, data);
+                },
+
                 getStudents: function(){
-                    var deferred = $q.defer();
-
-                    deferred.resolve(
-                        angular.copy(students)
-                    );
-
-                    return deferred.promise;
+                    return requestHandler("get", "Students");
+                },
+                getStudent: function(studentId){
+                    return requestHandler("get", "Students/"+studentId);
                 },
                 getLoans: function(){
-                    var deferred = $q.defer();
-
-                    deferred.resolve(
-                        angular.copy(loans)
-                    );
-
-                    return deferred.promise;
-                }
-                getStudent: function(studentId){
-                    var deferred = $q.defer();
-                    var found = false;
-                    for (var i = 0; i < students.length; i++) {
-                        if(students[i].studentId == studentId){
-                            deferred.resolve(
-                                angular.copy(students[i])
-                            );
-                            found = true;
-                            break;
-                        }
-                    }
-                    if(!found)
-                        deferred.reject();
-
-                    return deferred.promise;
+                    return requestHandler("get", "Loans");
+                },
+                getLoan: function(loanId){
+                    return requestHandler("get", "Loans/"+loanId);
+                },
+                updateLoan: function(loanId, dueDate){
+                    return requestHandler("post", "Loans/"+loanId, {dueDate: dueDate});
                 }
     		}
     	}])

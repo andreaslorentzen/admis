@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html ng-app="mainApp">
+<html ng-app="admisApp">
 <head>
 	<title>Admis</title>
-	<base href="/admis/">
+	<base href="/">
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" type="text/css" href="assets/bootstrap.min.css">
@@ -13,30 +13,37 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-touch.min.js"></script>
 	<script src="assets/ui-bootstrap-tpls-1.2.5.min.js"></script>
 	<script src="app.js"></script>
+	<script src="AppController.js"></script>
 	<script src="apiService.js"></script>	
 	<script src="front/FrontController.js"></script>
 	<script src="login/LoginController.js"></script>
 	<script src="components/ComponentsController.js"></script>
+	<script src="component/ComponentController.js"></script>
 	<script src="group/GroupController.js"></script>
-	<script src="students/StudentsController.js"></script>
 	<script src="loans/LoansController.js"></script>
+	<script src="loan/LoanController.js"></script>
+	<script src="students/StudentsController.js"></script>
 	<script src="student/StudentController.js"></script>
 </head>
 <body ng-controller="AppController">
+		<div style="position: fixed; left: 0; right: 0;z-index: 2000">
+			<div class="container">
+				<uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)" dismiss-on-timeout="3000">{{alert.message}}</uib-alert>
+			</div>
+		</div>
 	<div id="page-container" class="container">
+
 		<div class="row">
 			<div class="page-header">
-				<h3>Admis</h3>
+				<h3>Admis</h3><button class="btn btn-default" ng-hide="currentUri() == '/login'" ng-click="logout()">Log ud</button>
 			</div>
 		</div>
 		<div class="row">
 			<div id="navbar">
 				<ul class="nav nav-tabs">
-
-					<!--<li role="presentation" ng-class="{'active': currentUri() == '/'}"><a href="./">Forside</a></li>-->
 					<li role="presentation" ng-class="{'active': currentUri() == '/components'}"><a href="components">Komponenter</a></li>
-					<li role="presentation" ng-class="{'active': currentUri() == '/loans'}"><a href="loans">Udlån</a></li>
 					<li role="presentation" ng-class="{'active': currentUri() == '/students'}"><a href="students">Studerende</a></li>
+					<li role="presentation" ng-class="{'active': currentUri() == '/loans'}"><a href="loans">Udlån</a></li>
 				</ul>
 			</div>
 		</div>

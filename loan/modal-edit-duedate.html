@@ -1,0 +1,15 @@
+<div class="modal-header">
+    <h3 class="modal-title">Ændre afleveringsdato</h3>
+</div>
+<div class="modal-body">
+<form name="editDueDate" ng-submit="edit(editDueDate)" no-validate>
+  <div class="form-group">
+    <label for="name">Dato</label>
+    <uib-datepicker ng-model="dueDate" class="well well-sm" datepicker-options="datePickerOptions"></uib-datepicker>
+  </div>
+</form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" ng-click="edit(editDueDate)">Ændre</button>
+    <button class="btn btn-default" ng-click="cancel()">Fortryd</button>
+</div>

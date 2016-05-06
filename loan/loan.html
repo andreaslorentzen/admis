@@ -1,0 +1,62 @@
+<h1>Lån</h1>
+
+<table style="width:50%">
+	<tr>
+		<td>Lån ID:</td>
+		<td>{{loan.loanId}}</td>
+	</tr>
+	<tr>
+		<td>Udlånsdato:</td>
+		<td>{{loan.loanDate}}</td>
+	</tr>
+	<tr>
+		<td>Afleveringsdato:</td>
+		<td>{{loan.dueDate}}</td>
+		<td width="72"><button ng-if="!loan.deliveryDate" type="button" class="btn btn-xs btn-success" ng-click="editDueDate(loan)">Rediger</button></td>
+	</tr>
+
+	<tr>
+		<td>Status:</td>
+		<td>{{loan.deliveryDate ? "Afleveret" : "Ikke afleveret"}}</td>
+	</tr>
+	<tr ng-if="loan.deliveryDate">
+		<td>Leveringsdato:</td>
+		<td>{{loan.deliveryDate}}</td>
+	</tr>
+	<tr ng-if="loan.deliveryDate">
+		<td>Leveret til:</td>
+		<td>{{loan.deliveredTo}}</td>
+	</tr>
+
+	<tr><td><h3>Komponent</h3></td></tr>
+	<tr>
+		<td>Stregkode:</td>
+		<td>{{loan.component.barcode}}</td>
+	</tr>
+	<tr>
+		<td>Komponentgruppe:</td>
+		<td>{{loan.component.componentGroup.name}}</td>
+	</tr>
+	<tr>
+		<td>Komponent nummer:</td>
+		<td>{{loan.component.componentNumber}}</td>
+	</tr>
+	<tr>
+		<td>Status:</td>
+		<td>{{loan.component.status | studentStatus}}</td>
+	</tr>
+	<tr><td><h3>Studerende</h3></td></tr>
+	<tr>
+		<td>Studie nr:</td>
+		<td>{{loan.student.studentId}}</td>
+	</tr>
+	<tr>
+		<td>Navn:</td>
+		<td>{{loan.student.name}}</td>
+	</tr>
+	<tr>
+		<td>Status:</td>
+		<td>{{loan.status | studentStatus}}</td>
+	</tr>
+	<tr>
+</table>
