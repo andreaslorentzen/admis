@@ -1,22 +1,22 @@
 <div class="modal-header">
-    <h3 class="modal-title">Tilføj komponenter</h3>
+	<h3 class="modal-title">Tilføj komponenter</h3>
 </div>
 <div class="modal-body">
-<form name="createGroupForm" ng-submit="create(createGroupForm)" no-validate>
-  <div class="form-group">
-    <label for="group">Komponentgruppe</label>
-    <select class="form-control" name="group">
-    	<option>Vælg</option>
-	  	<option ng-repeat="group in componentGroups">{{group.name}}</option>
-	</select>
-  </div>
-  <div class="form-group">
-    <label for="count">Antal</label>
-    <input type="number" class="form-control" name="count" ng-model="count">
-  </div>
-</form>
+	<form name="createGroupForm" ng-submit="create(createGroupForm)" no-validate>
+		<div class="form-group">
+			<label for="group">Komponentgruppe</label>
+			<select class="form-control" name="group">
+				<option>Vælg</option>
+				<option ng-repeat="group in componentGroups">{{group.name}}</option>
+			</select>
+		</div>
+		<div class="form-group">
+			<label for="count">Antal</label>
+			<input type="number" class="form-control" name="count" ng-model="count">
+		</div>
+	</form>
 </div>
 <div class="modal-footer">
-    <button class="btn btn-primary" ng-click="create(createGroupForm)">Tilføj</button>
-    <button class="btn btn-default" ng-click="cancel()">Fortryd</button>
+	<button class="btn btn-primary" ng-click="create(createGroupForm)">Tilføj</button>
+	<button class="btn btn-default" ng-click="cancel()">Fortryd</button>
 </div>

@@ -1,5 +1,4 @@
 <h1>Lån</h1>
-
 <table style="width:50%">
 	<tr>
 		<td>Lån ID:</td>
@@ -14,7 +13,6 @@
 		<td>{{loan.dueDate}}</td>
 		<td width="72"><button ng-if="!loan.deliveryDate" type="button" class="btn btn-xs btn-success" ng-click="editDueDate(loan)">Rediger</button></td>
 	</tr>
-
 	<tr>
 		<td>Status:</td>
 		<td>{{loan.deliveryDate ? "Afleveret" : "Ikke afleveret"}}</td>
@@ -58,5 +56,4 @@
 		<td>Status:</td>
 		<td>{{loan.status | studentStatus}}</td>
 	</tr>
-	<tr>
 </table>
