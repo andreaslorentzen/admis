@@ -20,7 +20,7 @@ Viser:
 		</tr>
 	</thead>
 	<tbody>
-		<tr ng-repeat="loan in loans | loansSort: loanSort as results" ng-class="{'danger': loan.status && loan.daysToDelivery<0, 'warning': loan.status&&loan.daysToDelivery==0, 'success': !loan.status}" ng-click="openLoan(loan)">
+		<tr ng-repeat="loan in loans | loansSort: loanSort as results" ng-click="openLoan(loan)" ng-class="{'danger': loan.status && loan.daysToDelivery<0, 'warning': loan.status&&loan.daysToDelivery==0, 'success': !loan.status}">
 			<td><a href="components/{{loan.barcode}}">{{loan.barcode}}</a></td>
 			<td>{{loan.componentGroupName}}</td>
 			<td>{{loan.componentNumber}}</td>
@@ -35,8 +35,8 @@ Viser:
 			<td class="show-button"><button type="button" class="btn btn-xs btn-info">Vis</button></td>
 		</tr>
 		<tr ng-show="results.length==0">
-				<td colspan="9" class="text-center"><em>Ingen lån matchede filtreringen</em></td>
-			</tr>
+			<td colspan="9" class="text-center"><em>Ingen lån matchede filtreringen</em></td>
+		</tr>
 	</tbody>
 </table>
 

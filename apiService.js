@@ -10,9 +10,9 @@
             var scope = $rootScope.$new(true);
 
             scope.token;
-            if(typeof(Storage) !== "undefined") {
+            if(typeof(Storage) !== "undefined")
                 scope.token = window.localStorage.getItem("token");
-            }
+            
             scope.$watch("token", function(token, oldToken){
                 if(token){
                     if(typeof(Storage) !== "undefined")
@@ -26,12 +26,16 @@
                 }
             });
 
+            /*
+             * Function handling the API call
+             *
+             */
             function requestHandler(method, uri, requestData, successFunction){
                 var config = {
                     headers: {
                         "Access-token": scope.token
                     }
-                }
+                };
                 var httpPromise;
                 switch(method.toLowerCase()){
                     case "get":
@@ -114,7 +118,6 @@
                         standardLoanDuration: standardLoanDuration,
                         status: 1
                     });
-
                 },
                 updateComponentGroup: function(groupId, data){
                     return requestHandler("post", "ComponentGroups/"+groupId, data);
