@@ -6,7 +6,7 @@
      */
     angular.module('admisApp')
     	.service('apiService', ['$http','$q','$location','$rootScope', function($http,$q,$location,$rootScope){
-            var apiUrl = "http://54.93.171.44:8080/KomponentMis/api/";
+            var apiUrl = "http://54.93.99.67:8080/KomponentMis/api/";
             var scope = $rootScope.$new(true);
 
             scope.token;
